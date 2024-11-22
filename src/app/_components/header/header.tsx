@@ -38,9 +38,12 @@ const Header = ({ session }: { session: Session | null }) => {
           </Card>
           <Spacer />
           <Center>
-            <Button onClick={() => signOut()}>ログアウト</Button>
+            <Button colorScheme="success" onClick={() => signOut()}>
+              ログアウト
+            </Button>
           </Center>
           <Center>
+            {/* TODO Image押したら折りたたみのログアウトとuserページ遷移のボタンが出てくる */}
             <Image
               src={session.user?.image ?? ""}
               alt={session.user?.name ?? ""}
@@ -54,7 +57,7 @@ const Header = ({ session }: { session: Session | null }) => {
         <Flex w="full">
           <Spacer></Spacer>
           <Link href="/login">
-            <Button>ログイン</Button>
+            <Button colorScheme="success">ログイン</Button>
           </Link>
         </Flex>
       )}
