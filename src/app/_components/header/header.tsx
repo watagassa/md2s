@@ -22,10 +22,10 @@ const Header = ({ session }: { session: Session | null }) => {
       bgColor="whiteAlpha.950"
       p="1.5"
       boxShadow="0px 0px 5px black"
-      w="full"
+      gap="md"
     >
       {session ? (
-        <Flex w="full" gap="md">
+        <>
           MD2Sのアイコン
           <Spacer />
           <Card bgColor="neutral.50">
@@ -52,14 +52,14 @@ const Header = ({ session }: { session: Session | null }) => {
               // height={40}
             />
           </Center>
-        </Flex>
+        </>
       ) : (
-        <Flex w="full">
+        <>
           <Spacer></Spacer>
           <Link href="/login">
             <Button colorScheme="success">ログイン</Button>
           </Link>
-        </Flex>
+        </>
       )}
     </Flex>
   );
