@@ -29,7 +29,7 @@ const Header = ({ session }: { session: Session | null }) => {
           MD2Sのアイコン
           <Spacer />
           <Card bgColor="neutral.50">
-            <InputGroup w={"full"} h={"full"}>
+            <InputGroup w="full" h="full">
               <InputLeftElement>
                 <Icon as={PiMagnifyingGlassBold}></Icon>
               </InputLeftElement>
