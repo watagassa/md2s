@@ -26,7 +26,7 @@ const Header = ({ session }: { session: Session | null }) => {
     >
       {session ? (
         <>
-          MD2Sのアイコン
+          <Image src="/md2s_icon.svg" alt="" />
           <Spacer />
           <Card bgColor="neutral.50">
             <InputGroup w="full" h="full">
@@ -55,6 +55,7 @@ const Header = ({ session }: { session: Session | null }) => {
         </>
       ) : (
         <>
+          <Image src="/md2s_icon.svg" alt="" />
           <Spacer></Spacer>
           <Link href="/login">
             <Button colorScheme="success">ログイン</Button>
