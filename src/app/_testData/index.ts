@@ -91,7 +91,7 @@ export const testPostData2 = [
     user: {
       id: 1,
       name: "henoheno",
-      user_icon: "/usr_icon.png",
+      icon: "/usr_icon.png",
     },
     create_user_id: "387a4e2d-5b8d-4d-9035-ee95680b66b4",
     title: "title1",
@@ -117,7 +117,7 @@ export const testPostData2 = [
     user: {
       id: 1,
       name: "henoheno",
-      user_icon: "/usr_icon.png",
+      icon: "/usr_icon.png",
     },
     create_user_id: "387a4e2d-5b8d-4d-9035-ee95680b66b4",
     title: "title1",
@@ -143,7 +143,7 @@ export const testPostData2 = [
     user: {
       id: 1,
       name: "henoheno",
-      user_icon: "/usr_icon.png",
+      icon: "/usr_icon.png",
     },
     create_user_id: "387a4e2d-5b8d-4d-9035-ee95680b66b4",
     title: "title1",
