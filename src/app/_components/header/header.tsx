@@ -55,7 +55,7 @@ const Header = ({ session }: { session: Session | null }) => {
         </>
       ) : (
         <>
-          <Image src="/md2s_icon.svg" alt="" />4az53
+          <Image src="/md2s_icon.svg" alt="" />
           <Spacer></Spacer>
           <Link href="/login">
             <Button colorScheme="success">ログイン</Button>
