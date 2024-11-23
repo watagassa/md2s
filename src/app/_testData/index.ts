@@ -84,3 +84,84 @@ export const testPostData = {
   md: testMd,
   marp: testMarp,
 };
+
+export const testPostData2 = [
+  {
+    id: 1,
+    user: {
+      id: 1,
+      name: "henoheno",
+      user_icon: "/usr_icon.png",
+    },
+    create_user_id: "387a4e2d-5b8d-4d-9035-ee95680b66b4",
+    title: "title1",
+    main_MD: "本文のMarkdown",
+    slide_MD: "スライドのMarkdown",
+    created_at: "2021-01-01T00:00:00Z",
+    updated_at: "2021-01-01T00:00:00Z",
+    like_count: 10,
+    public: true,
+    tags: [
+      {
+        id: 1,
+        name: "tag1",
+      },
+      {
+        id: 2,
+        name: "tag2",
+      },
+    ],
+  },
+  {
+    id: 2,
+    user: {
+      id: 1,
+      name: "henoheno",
+      user_icon: "/usr_icon.png",
+    },
+    create_user_id: "387a4e2d-5b8d-4d-9035-ee95680b66b4",
+    title: "title1",
+    main_MD: "本文のMarkdown",
+    slide_MD: "スライドのMarkdown",
+    created_at: "2021-01-01T00:00:00Z",
+    updated_at: "2021-01-01T00:00:00Z",
+    like_count: 10,
+    public: true,
+    tags: [
+      {
+        id: 1,
+        name: "tag1",
+      },
+      {
+        id: 2,
+        name: "tag2",
+      },
+    ],
+  },
+  {
+    id: 3,
+    user: {
+      id: 1,
+      name: "henoheno",
+      user_icon: "/usr_icon.png",
+    },
+    create_user_id: "387a4e2d-5b8d-4d-9035-ee95680b66b4",
+    title: "title1",
+    main_MD: "本文のMarkdown",
+    slide_MD: "スライドのMarkdown",
+    created_at: "2021-01-01T00:00:00Z",
+    updated_at: "2021-01-01T00:00:00Z",
+    like_count: 10,
+    public: true,
+    tags: [
+      {
+        id: 1,
+        name: "tag1",
+      },
+      {
+        id: 2,
+        name: "tag2",
+      },
+    ],
+  },
+];
