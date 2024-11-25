@@ -87,77 +87,77 @@ export const testPostData = {
 
 export const testPostData2 = [
   {
-    "id": "1",
-    "create_user_id": "387a4e2d-5b8d-4d-9035-ee95680b66b4",
-    "user_name": "user1",
-    "user_icon": "https://example.com/icon.jpg",
-    "title": "title1",
-    "main_MD": "本文のMarkdown",
-    "slide_MD": "スライドのMarkdown",
-    "created_at": "2021-01-01T00:00:00Z",
-    "updated_at": "2021-01-01T00:00:00Z",
-    "like_count": 10,
-    "public": true,
-    "qiita_article": true,
-    "tags": [
+    id: "1",
+    create_user_id: "387a4e2d-5b8d-4d-9035-ee95680b66b4",
+    user_name: "user1",
+    user_icon: "/usr_icon.png",
+    title: "title1",
+    main_MD: "本文のMarkdown",
+    slide_MD: "スライドのMarkdown",
+    created_at: "2021-01-01T00:00:00Z",
+    updated_at: "2021-01-01T00:00:00Z",
+    like_count: 10,
+    public: true,
+    qiita_article: true,
+    tags: [
       {
-        "id": "1",
-        "name": "tag1"
+        id: "1",
+        name: "tag1",
       },
       {
-        "id": "2",
-        "name": "tag2"
-      }
-    ]
+        id: "2",
+        name: "tag2",
+      },
+    ],
   },
   {
-    "id": "2",
-    "create_user_id": "387a4e2d-5b8d-4d-9035-ee95680b66b4",
-    "user_name": "user2",
-    "user_icon": "https://example.com/icon.jpg",
-    "title": "title2",
-    "main_MD": "本文のMarkdown",
-    "slide_MD": "スライドのMarkdown",
-    "created_at": "2021-01-01T00:00:00Z",
-    "updated_at": "2021-01-01T00:00:00Z",
-    "like_count": 10,
-    "public": true,
-    "qiita_article": false,
-    "tags": [
+    id: "2",
+    create_user_id: "387a4e2d-5b8d-4d-9035-ee95680b66b4",
+    user_name: "user2",
+    user_icon: "/usr_icon.png",
+    title: "title2",
+    main_MD: "本文のMarkdown",
+    slide_MD: "スライドのMarkdown",
+    created_at: "2021-01-01T00:00:00Z",
+    updated_at: "2021-01-01T00:00:00Z",
+    like_count: 10,
+    public: true,
+    qiita_article: false,
+    tags: [
       {
-        "id": "1",
-        "name": "tag1"
+        id: "1",
+        name: "tag1",
       },
       {
-        "id": "2",
-        "name": "tag2"
-      }
-    ]
+        id: "2",
+        name: "tag2",
+      },
+    ],
   },
   {
-    "id": "3",
-    "create_user_id": "387a4e2d-5b8d-4d-9035-ee95680b66b4",
-    "user_name": "user2",
-    "user_icon": "https://example.com/icon.jpg",
-    "title": "title2",
-    "main_MD": "本文のMarkdown",
-    "slide_MD": "スライドのMarkdown",
-    "created_at": "2021-01-01T00:00:00Z",
-    "updated_at": "2021-01-01T00:00:00Z",
-    "like_count": 10,
-    "public": true,
-    "qiita_article": false,
-    "tags": [
+    id: "3",
+    create_user_id: "387a4e2d-5b8d-4d-9035-ee95680b66b4",
+    user_name: "user2",
+    user_icon: "/usr_icon.png",
+    title: "title2",
+    main_MD: "本文のMarkdown",
+    slide_MD: "スライドのMarkdown",
+    created_at: "2021-01-01T00:00:00Z",
+    updated_at: "2021-01-01T00:00:00Z",
+    like_count: 10,
+    public: true,
+    qiita_article: false,
+    tags: [
       {
-        "id": "1",
-        "name": "tag1"
+        id: "1",
+        name: "tag1",
       },
       {
-        "id": "2",
-        "name": "tag2"
-      }
-    ]
-  }
+        id: "2",
+        name: "tag2",
+      },
+    ],
+  },
 ];
 
 export const testUserData = {
