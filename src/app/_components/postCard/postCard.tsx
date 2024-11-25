@@ -10,10 +10,10 @@ import {
   Text,
 } from "@yamada-ui/react";
 import { HeartIcon } from "@yamada-ui/lucide";
-import { type Post } from "@/types/post";
+import { type Article } from "@/types/post";
 
 interface CardProps {
-  post: Post;
+  post: Article;
 }
 
 export function PostCard({ post }: CardProps) {
@@ -35,9 +35,9 @@ export function PostCard({ post }: CardProps) {
         paddingInline={"md"}
       >
         <CardHeader>
-          <Avatar size="sm" name={post.user.name} src={post.user.icon} />
+          <Avatar size="sm" name={post.user_name} src={post.user_icon} />
           <Box>
-            <Text>{post.user.name}</Text>
+            <Text>{post.user_name}</Text>
             <Text>{date}</Text>
           </Box>
         </CardHeader>

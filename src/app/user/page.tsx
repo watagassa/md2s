@@ -15,8 +15,8 @@ const page = () => {
           <Box>
             <Text>{user.name}</Text>
             <Flex>
-              <Text>投稿数：{user.posts_number}</Text>
-              <Text>獲得いいね数：{user.likes_number}</Text>
+              <Text>投稿数：{user.total_posts_articles}</Text>
+              <Text>獲得いいね数：{user.total_get_likes}</Text>
             </Flex>
           </Box>
         </Flex>
