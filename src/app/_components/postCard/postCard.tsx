@@ -18,11 +18,22 @@ interface CardProps {
 
 export function PostCard({ post }: CardProps) {
   const created_date: Date = new Date(post.created_at);
-  const date: string = created_date.getUTCFullYear() + "年" + (created_date.getUTCMonth() + 1) + "月" + created_date.getUTCDate() + "日" ;
+  const date: string =
+    created_date.getUTCFullYear() +
+    "年" +
+    (created_date.getUTCMonth() + 1) +
+    "月" +
+    created_date.getUTCDate() +
+    "日";
 
   return (
     <Flex justify="center">
-      <Card bgColor={"whiteAlpha.950"} w="max(80%, sm)" rounded="4" paddingInline={"md"}>
+      <Card
+        bgColor={"whiteAlpha.950"}
+        w="max(80%, sm)"
+        rounded="4"
+        paddingInline={"md"}
+      >
         <CardHeader>
           <Avatar size="sm" name={post.user.name} src={post.user.icon} />
           <Box>
@@ -30,7 +41,9 @@ export function PostCard({ post }: CardProps) {
             <Text>{date}</Text>
           </Box>
         </CardHeader>
-        <CardBody fontSize="xl" p={"sm"} pl={"normal"}>{post.title}</CardBody>
+        <CardBody fontSize="xl" p={"sm"} pl={"normal"}>
+          {post.title}
+        </CardBody>
         <CardFooter>
           <Flex gap="md">
             {post.tags.map((tag) => (

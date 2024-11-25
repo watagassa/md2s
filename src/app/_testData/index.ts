@@ -165,3 +165,9 @@ export const testPostData2 = [
     ],
   },
 ];
+
+export const testUserData = {
+  id: 1,
+  name: "henoheno",
+  icon: "/usr_icon.png",
+};
