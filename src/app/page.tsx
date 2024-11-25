@@ -6,9 +6,11 @@ export default function Home() {
   const posts = testPostData2; //取得した記事データ
 
   return (
-    <Box bgColor={"blackAlpha.50"} py={"xl"} boxSize={"full"}>
-      <Flex justify="center" w="max(80%, sm)" p={"md"}>
-        おすすめ
+    <Box bgColor={"blackAlpha.50"} py={"xl"}>
+      <Flex justify="center" >
+        <Text w="max(80%, sm)" p={"md"}>
+          おすすめ
+        </Text>
       </Flex>
       <VStack gap={"md"}>
         {posts.map((post) => (

@@ -1,18 +1,25 @@
 import React from "react";
 import { testPostData2, testUserData } from "@/app/_testData";
 import { PostCard } from "@/app/_components/postCard/postCard";
-import { Box, VStack, Text, Flex } from "@yamada-ui/react";
+import { Box, VStack, Avatar, Flex, Text } from "@yamada-ui/react";
 
 const page = () => {
-  const posts = testPostData2; //取得した記事データ
+  const posts = testPostData2; //取得したユーザーが投稿した記事データ
   const user = testUserData; //取得したユーザーデータ
 
   return (
-    <Box bgColor={"blackAlpha.50"} py={"xl"} boxSize={"full"}>
+    <Box bgColor={"blackAlpha.50"} py={"xl"}>
       <Flex justify="center">
-        <Text w="max(80%, sm)" p={"md"}>
-          Userページ
-        </Text>
+        <Flex w="max(80%, sm)" p={"md"} bgColor={"whiteAlpha.950"}>
+          <Avatar size="normal" name={user.name} src={user.icon} />
+          <Box>
+            <Text>{user.name}</Text>
+            <Flex>
+              <Text>投稿数：{user.posts_number}</Text>
+              <Text>獲得いいね数：{user.likes_number}</Text>
+            </Flex>
+          </Box>
+        </Flex>
       </Flex>
       <VStack gap={"md"}>
         {posts.map((post) => (
