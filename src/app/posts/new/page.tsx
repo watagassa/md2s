@@ -1,11 +1,23 @@
-import React from "react";
+"use client";
+import MarkdownEditor from "@/app/_components/markdown/MarkdownEditer";
+import MdSlideToggle from "@/app/_components/mdToSlide/MdSlideToggle";
+import { Box, Flex, Spacer } from "@yamada-ui/react";
+import React, { useState } from "react";
 
-const page = () => {
+const NewPost = () => {
+  const [isMarkdownView, setIsMarkdownView] = useState(true);
   return (
-    <div>
-      <div>newページ</div>
-    </div>
+    <Box p={"md"}>
+      <Flex>
+        <Spacer />
+        <MdSlideToggle
+          isMarkdownView={isMarkdownView}
+          setIsMarkdownView={setIsMarkdownView}
+        />
+      </Flex>
+      <MarkdownEditor />
+    </Box>
   );
 };
 
-export default page;
+export default NewPost;
