@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@yamada-ui/lucide": "^1.8.1",
     "@yamada-ui/react": "^1.6.4",
     "easymde": "^2.18.0",
     "marked": "^15.0.2",
