@@ -1,13 +1,3 @@
-// パラメーター 'post' の型は暗黙的に 'any' になります。ってうるさいからやった
-export interface User {
-  id: string;
-  name: string;
-  icon: string;
-  google_id: string;
-  total_posts_articles: number;
-  total_get_likes: number;
-}
-
 export interface Tag {
   id: string;
   name: string;
