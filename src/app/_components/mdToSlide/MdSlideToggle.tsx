@@ -1,20 +1,22 @@
-"use client";
 import { Button, Center, Flex, Icon } from "@yamada-ui/react";
-import React, { useState } from "react";
+import React from "react";
 import { BsFileEarmarkSlides } from "react-icons/bs";
 import { PiFileMdBold } from "react-icons/pi";
-const MdSlideToggle = () => {
-  // TODO これは親コンポーネントから受け取れるようにする
-  const [isMarkdownView, setIsMarkdownView] = useState(true);
+type MdSlideToggleProps = {
+  isMarkdownView: boolean;
+  setIsMarkdownView: React.Dispatch<React.SetStateAction<boolean>>;
+};
 
+const MdSlideToggle = ({
+  isMarkdownView,
+  setIsMarkdownView,
+}: MdSlideToggleProps) => {
   return (
     <Flex>
       <Center>
         <Button
           onClick={() => {
-            if (!isMarkdownView) {
-              setIsMarkdownView(true);
-            }
+            setIsMarkdownView(true);
           }}
           w={"3.5rem"}
           bg={isMarkdownView ? "neutral.500" : "white"}
@@ -30,9 +32,7 @@ const MdSlideToggle = () => {
 
       <Button
         onClick={() => {
-          if (isMarkdownView) {
-            setIsMarkdownView(false);
-          }
+          setIsMarkdownView(false);
         }}
         w={"3.5rem"}
         bg={!isMarkdownView ? "neutral.500" : "white"}
