@@ -7,7 +7,7 @@ import NextAuthProvider from "@/app/providers";
 
 import { nextAuthOptions } from "@/app/_utils/nextAuth/next-auth-options";
 import { UIProvider } from "@yamada-ui/react";
-import Header from "./_components/header/Header";
+import Header from "./_components/myHeader/myHeader";
 
 export const metadata: Metadata = {
   title: "Create Next App",
