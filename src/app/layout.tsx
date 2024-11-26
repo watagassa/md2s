@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { M_PLUS_1p } from "next/font/google";
-import "./globals.css";
+// import "./globals.css";
 
 import { getServerSession } from "next-auth/next";
 import NextAuthProvider from "@/app/providers";
