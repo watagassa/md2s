@@ -17,16 +17,16 @@ import {
 } from "@yamada-ui/react";
 import { useAtom } from "jotai";
 import { userSessionAtom } from "@/app/atoms/atom";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 const Header = ({ session }: { session: Session | null }) => {
   const [userSession, setUserSession] = useAtom(userSessionAtom);
-  useEffect(() => {
-    if (session !== null) {
-      if (session.user !== undefined) {
-        setUserSession(session.user);
-      }
-    }
-  }, [session]);
+  // useEffect(() => {
+  //   if (session !== null) {
+  //     if (session.user !== undefined) {
+  //       setUserSession(session.user);
+  //     }
+  //   }
+  // }, [session]);
 
   return (
     <Flex
