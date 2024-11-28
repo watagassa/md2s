@@ -1,4 +1,4 @@
-import { User } from "@/types/post";
+import { User } from "@/types/user";
 import { atom } from "jotai";
 import { loadable } from "jotai/utils";
 
