@@ -1,21 +1,86 @@
 "use client";
 import MarkdownEditor from "@/app/_components/markdown/MarkdownEditer";
+import CreateSlideInMd from "@/app/_components/mdToSlide/CreateSlideInMd";
 import MdSlideToggle from "@/app/_components/mdToSlide/MdSlideToggle";
-import { Box, Flex, Spacer } from "@yamada-ui/react";
+import SlidePreview from "@/app/_components/slide/SlidePreview";
+import { userAtom } from "@/app/atoms/atom";
+import { Markdown } from "@yamada-ui/markdown";
+import {
+  Box,
+  Card,
+  Flex,
+  Heading,
+  Input,
+  ScrollArea,
+  Spacer,
+  VStack,
+} from "@yamada-ui/react";
+import { useAtomValue } from "jotai";
+import { redirect } from "next/navigation";
 import React, { useState } from "react";
 
 const NewPost = () => {
+  const user = useAtomValue(userAtom);
+  // loginしていなかったらloginページに遷移
+  if (!user) {
+    redirect("/login");
+  }
+  const [markdownValue, setMarkdownValue] = useState("");
+  const [marpValue, setMarpValue] = useState("");
   const [isMarkdownView, setIsMarkdownView] = useState(true);
+
   return (
     <Box p={"md"}>
       <Flex>
+        <Box>
+          <Flex pb={"xs"}>
+            <Input type="text" fontSize={"4xl"} placeholder="タイトル" />
+          </Flex>
+          <Flex pl={"xs"}>
+            <Heading fontSize={"2xl"} whiteSpace={"nowrap"} p={"xs"}>
+              タグ
+            </Heading>
+            <Input
+              type="text"
+              fontSize={"xl"}
+              placeholder="半角スペースで区切る"
+            />
+          </Flex>
+        </Box>
         <Spacer />
-        <MdSlideToggle
-          isMarkdownView={isMarkdownView}
-          setIsMarkdownView={setIsMarkdownView}
-        />
+        <Box>
+          <Flex>
+            <CreateSlideInMd />
+            <MdSlideToggle
+              isMarkdownView={isMarkdownView}
+              setIsMarkdownView={setIsMarkdownView}
+            />
+          </Flex>
+        </Box>
       </Flex>
-      <MarkdownEditor />
+      {isMarkdownView ? (
+        <Flex>
+          <MarkdownEditor
+            markdownValue={markdownValue}
+            setMarkdownValue={setMarkdownValue}
+          />
+          <Card w={"50%"}>
+            <Markdown minW={"50%"}>{markdownValue}</Markdown>
+          </Card>
+        </Flex>
+      ) : (
+        <Flex>
+          <MarkdownEditor
+            markdownValue={marpValue}
+            setMarkdownValue={setMarpValue}
+          />
+          <Card w={"50%"}>
+            <ScrollArea innerProps={{ as: VStack, gap: "md" }}>
+              <SlidePreview slide={marpValue}></SlidePreview>
+            </ScrollArea>
+          </Card>
+        </Flex>
+      )}
     </Box>
   );
 };

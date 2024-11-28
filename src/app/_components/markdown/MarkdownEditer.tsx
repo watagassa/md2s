@@ -1,16 +1,20 @@
 "use client";
-import React, { useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import dynamic from "next/dynamic";
 import "easymde/dist/easymde.min.css";
-import { Card, Flex } from "@yamada-ui/react";
-import { Markdown } from "@yamada-ui/markdown";
 
 const SimpleMde = dynamic(() => import("react-simplemde-editor"), {
   ssr: false,
 });
-export const MarkdownEditor = () => {
-  const [markdownValue, setMarkdownValue] = useState("");
 
+type MarkdownEditorSchema = {
+  markdownValue: string;
+  setMarkdownValue: React.Dispatch<React.SetStateAction<string>>;
+};
+export const MarkdownEditor = ({
+  markdownValue,
+  setMarkdownValue,
+}: MarkdownEditorSchema) => {
   const onChange = (value: string) => {
     setMarkdownValue(value);
   };
@@ -50,17 +54,12 @@ export const MarkdownEditor = () => {
     };
   }, []); // オプションが固定であれば空配列でOK
   return (
-    <Flex w="full">
-      <SimpleMde
-        value={markdownValue}
-        onChange={onChange}
-        style={{ width: "50%" }}
-        options={editorOptions}
-      />
-      <Card w={"50%"}>
-        <Markdown minW={"50%"}>{markdownValue}</Markdown>
-      </Card>
-    </Flex>
+    <SimpleMde
+      value={markdownValue}
+      onChange={onChange}
+      style={{ width: "50%" }}
+      options={editorOptions}
+    />
   );
 };
 
