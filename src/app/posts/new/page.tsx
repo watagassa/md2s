@@ -3,7 +3,7 @@ import MarkdownEditor from "@/app/_components/markdown/MarkdownEditer";
 import CreateSlideInMd from "@/app/_components/mdToSlide/CreateSlideInMd";
 import MdSlideToggle from "@/app/_components/mdToSlide/MdSlideToggle";
 import SlidePreview from "@/app/_components/slide/SlidePreview";
-import { userAtom } from "@/app/atoms/atom";
+import { userSessionAtom } from "@/app/atoms/atom";
 import { Markdown } from "@yamada-ui/markdown";
 import {
   Box,
@@ -20,9 +20,9 @@ import { redirect } from "next/navigation";
 import React, { useState } from "react";
 
 const NewPost = () => {
-  const user = useAtomValue(userAtom);
+  const userSession = useAtomValue(userSessionAtom);
   // loginしていなかったらloginページに遷移
-  if (!user) {
+  if (!userSession) {
     redirect("/login");
   }
   const [markdownValue, setMarkdownValue] = useState("");

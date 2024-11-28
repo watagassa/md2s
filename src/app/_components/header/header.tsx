@@ -26,7 +26,7 @@ const Header = ({ session }: { session: Session | null }) => {
         setUserSession(session.user);
       }
     }
-  }, []);
+  }, [session]);
 
   return (
     <Flex
