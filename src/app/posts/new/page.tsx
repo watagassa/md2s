@@ -8,7 +8,6 @@ import {
   Box,
   Card,
   Flex,
-  Heading,
   Input,
   ScrollArea,
   Spacer,
@@ -27,26 +26,30 @@ const NewPost = () => {
   const [isMarkdownView, setIsMarkdownView] = useState(true);
 
   return (
-    <Box p={"md"}>
+    <Box p={"normal"}>
       <Flex>
-        <Box>
-          <Flex pb={"xs"}>
-            <Input type="text" fontSize={"4xl"} placeholder="タイトル" />
+        <Box marginBottom={"sm"}>
+          <Flex pb={"sm"}>
+            <Input
+              type="text"
+              fontSize={"4xl"}
+              width={"3xl"}
+              bgColor={"neutral.50"}
+              placeholder="タイトルを入力してください。"
+            />
           </Flex>
-          <Flex pl={"xs"}>
-            <Heading fontSize={"2xl"} whiteSpace={"nowrap"} p={"xs"}>
-              タグ
-            </Heading>
+          <Flex>
             <Input
               type="text"
               fontSize={"xl"}
-              placeholder="半角スペースで区切る"
+              bgColor={"neutral.50"}
+              placeholder="タグを入力してください。半角スペースで区切る"
             />
           </Flex>
         </Box>
         <Spacer />
         <Box>
-          <Flex>
+          <Flex gap={"md"} marginTop={"xl"} marginInline={"normal"}>
             <CreateSlideInMd />
             <MdSlideToggle
               isMarkdownView={isMarkdownView}
@@ -61,8 +64,15 @@ const NewPost = () => {
             markdownValue={markdownValue}
             setMarkdownValue={setMarkdownValue}
           />
-          <Card w={"50%"}>
-            <Markdown minW={"50%"}>{markdownValue}</Markdown>
+          <Card
+            w={"50%"}
+            bgColor={"whiteAlpha.950"}
+            border={"1px solid #CED4DA"}
+            boxShadow={"0"}
+          >
+            <Markdown minW={"50%"} p={"md"}>
+              {markdownValue}
+            </Markdown>
           </Card>
         </Flex>
       ) : (
@@ -71,8 +81,13 @@ const NewPost = () => {
             markdownValue={marpValue}
             setMarkdownValue={setMarpValue}
           />
-          <Card w={"50%"}>
-            <ScrollArea innerProps={{ as: VStack, gap: "md" }}>
+          <Card
+            w={"50%"}
+            bgColor={"#CED4DA"}
+            border={"1px solid #CED4DA"}
+            boxShadow={"0"}
+          >
+            <ScrollArea innerProps={{ as: VStack, gap: "1px" }}>
               <SlidePreview slide={marpValue}></SlidePreview>
             </ScrollArea>
           </Card>
