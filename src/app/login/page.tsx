@@ -1,10 +1,5 @@
 "use client";
 
-import React from "react";
-import { useEffect } from "react";
-import { redirect } from "next/navigation";
-import { signIn } from "next-auth/react";
-import { useSession } from "next-auth/react";
 import {
   Button,
   ButtonGroup,
@@ -14,15 +9,26 @@ import {
   Icon,
   Spacer,
 } from "@yamada-ui/react";
+import { signIn, useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
+import React, { useEffect } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { SiQiita } from "react-icons/si";
+import { postUser } from "../api/user/user";
 
 const LoginPage = () => {
   const { data: session, status } = useSession();
   useEffect(() => {
     // ログイン済みの場合はTOPページにリダイレクト
     if (status === "authenticated") {
+      console.log("login success");
+      postUser(session);
       redirect("/");
+    } else {
+      if (status === "loading") {
+        return console.log("loading");
+      }
+      console.log("login failed");
     }
   }, [session, status]);
 
@@ -32,6 +38,9 @@ const LoginPage = () => {
 
     // ログインに成功したらTOPページにリダイレクト
     if (result) {
+      console.log("login success");
+      postUser(session);
+      console.log("login success");
       redirect("/");
     }
   };
