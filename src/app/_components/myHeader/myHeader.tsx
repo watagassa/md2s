@@ -2,7 +2,6 @@
 import { PiMagnifyingGlassBold } from "react-icons/pi";
 import Link from "next/link";
 import { type Session } from "next-auth";
-import { signOut } from "next-auth/react";
 import {
   Button,
   Flex,
@@ -15,18 +14,18 @@ import {
   InputGroup,
   InputLeftElement,
 } from "@yamada-ui/react";
-// import { useAtom } from "jotai";
-// import { userSessionAtom } from "@/app/atoms/atom";
-// import { useEffect } from "react";
+import { useAtom } from "jotai";
+import { userSessionAtom } from "@/app/atoms/atom";
+import { useEffect } from "react";
+import IconPopover from "./IconPopover";
+import { redirect } from "next/navigation";
 const Header = ({ session }: { session: Session | null }) => {
-  // const [userSession, setUserSession] = useAtom(userSessionAtom);
-  // useEffect(() => {
-  //   if (session !== null) {
-  //     if (session.user !== undefined) {
-  //       setUserSession(session.user);
-  //     }
-  //   }
-  // }, [session]);
+  const [userSession, setUserSession] = useAtom(userSessionAtom);
+  useEffect(() => {
+    if (session?.user) {
+      setUserSession(session.user);
+    }
+  }, [session]);
 
   return (
     <Flex
@@ -35,7 +34,7 @@ const Header = ({ session }: { session: Session | null }) => {
       boxShadow="0px 0px 5px black"
       gap="md"
     >
-      {session ? (
+      {userSession ? (
         <>
           <Image src="/md2s_icon.svg" alt="" />
           <Spacer />
@@ -49,19 +48,13 @@ const Header = ({ session }: { session: Session | null }) => {
           </Card>
           <Spacer />
           <Center>
-            <Button colorScheme="success" onClick={() => signOut()}>
-              ログアウト
+            <Button colorScheme="link" onClick={() => redirect("/posts/new")}>
+              投稿する
             </Button>
           </Center>
           <Center>
             {/* TODO Image押したら折りたたみのログアウトとuserページ遷移のボタンが出てくる */}
-            <Image
-              src={session?.user?.image ?? ""}
-              alt={session?.user?.name ?? ""}
-              borderRadius="50%"
-              width="10"
-              // height={40}
-            />
+            <IconPopover />
           </Center>
         </>
       ) : (
