@@ -1,5 +1,4 @@
 import GoogleProvider from "next-auth/providers/google";
-
 import type { NextAuthOptions } from "next-auth";
 
 export const nextAuthOptions: NextAuthOptions = {
@@ -12,32 +11,20 @@ export const nextAuthOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    jwt: async ({ token, user, account, profile }) => {
-      // 注意: トークンをログ出力してはダメです。
-      console.log("in jwt", { user, token, account, profile });
-
-      if (user) {
-        token.user = user;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const u = user as any;
-        token.role = u.role;
-      }
+    async jwt({ token, account }) {
       if (account) {
+        // Googleログインの場合、トークン情報をカスタムプロパティとして追加
         token.accessToken = account.access_token;
+        token.idToken = account.id_token;
       }
       return token;
     },
-    session: ({ session, token }) => {
-      console.log("in session", { session, token });
-      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-      token.accessToken;
-      return {
-        ...session,
-        user: {
-          ...session.user,
-          role: token.role,
-        },
-      };
+    async session({ session, token }) {
+      // セッションにJWTの情報を追加
+      session.accessToken = token.accessToken; //accessTokenは、Googleログインの場合のみ存在
+      session.idToken = token.idToken;
+      session.sub = token.sub;
+      return session;
     },
   },
 };
