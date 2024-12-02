@@ -2,7 +2,6 @@
 import { PiMagnifyingGlassBold } from "react-icons/pi";
 import Link from "next/link";
 import { type Session } from "next-auth";
-import { signOut } from "next-auth/react";
 import {
   Button,
   Flex,
@@ -18,6 +17,8 @@ import {
 import { useAtom } from "jotai";
 import { userSessionAtom } from "@/app/atoms/atom";
 import { useEffect } from "react";
+import IconPopover from "./IconPopover";
+import { redirect } from "next/navigation";
 const Header = ({ session }: { session: Session | null }) => {
   const [userSession, setUserSession] = useAtom(userSessionAtom);
   useEffect(() => {
@@ -47,19 +48,13 @@ const Header = ({ session }: { session: Session | null }) => {
           </Card>
           <Spacer />
           <Center>
-            <Button colorScheme="success" onClick={() => signOut()}>
-              ログアウト
+            <Button colorScheme="link" onClick={() => redirect("/posts/new")}>
+              投稿する
             </Button>
           </Center>
           <Center>
             {/* TODO Image押したら折りたたみのログアウトとuserページ遷移のボタンが出てくる */}
-            <Image
-              src={userSession?.image ?? ""}
-              alt={userSession?.name ?? ""}
-              borderRadius="50%"
-              width="10"
-              // height={40}
-            />
+            <IconPopover />
           </Center>
         </>
       ) : (
