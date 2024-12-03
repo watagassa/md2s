@@ -22,6 +22,8 @@ export const MarkdownEditor = ({
   // optionが生成され、再レンダリングが起きる by ChatGPT
   const editorOptions: EasyMDE.Options = useMemo(() => {
     return {
+      maxHeight: "50vh",
+      lineNumbers: true, // 行番号を表示
       toolbar: [
         "bold", // 太字
         "italic", // 斜体
