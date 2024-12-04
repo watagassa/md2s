@@ -60,7 +60,7 @@ const PostView = () => {
         </VStack>
       </HStack>
       {isMarkdownView ? (
-        <Box p={"xl"} bgColor={"whiteAlpha.950"}>
+        <Box p={"xl"} bgColor={"whiteAlpha.950"} rounded={"lg"}>
           <MarkdownPreview md={post.main_MD} />
         </Box>
       ) : (
