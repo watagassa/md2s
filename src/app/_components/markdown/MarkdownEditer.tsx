@@ -2,6 +2,11 @@
 import React, { useMemo } from "react";
 import dynamic from "next/dynamic";
 import "easymde/dist/easymde.min.css";
+import {
+  easyMDEHandleDrop,
+  easyMDEHandlePaste,
+  getEasyMDEInstance,
+} from "@/app/_utils/markdown_editor/ImageFnc/editorEvent";
 
 const SimpleMde = dynamic(() => import("react-simplemde-editor"), {
   ssr: false,
@@ -17,76 +22,6 @@ export const MarkdownEditor = ({
 }: MarkdownEditorSchema) => {
   const onChange = (value: string) => {
     setMarkdownValue(value);
-  };
-
-  let simpleMde: EasyMDE;
-
-  const uploadImage = async () => {
-    try {
-      return "アップロード中";
-      // 画像アップロード処理を実行
-    } catch (error) {
-      console.error("アップロードエラー", error);
-      return "アップロードできませんでした";
-    }
-  };
-
-  const handleDrop = async (
-    instance: CodeMirror.Editor,
-    e: React.DragEvent
-  ) => {
-    // e.clipboardDataまたはe.dataTransferが存在するか確認
-    if (
-      !e.dataTransfer ||
-      !e.dataTransfer.files ||
-      e.dataTransfer.files.length === 0
-    ) {
-      return;
-    }
-
-    const files = e.dataTransfer.files;
-    const file = files[0];
-
-    if (
-      file.type === "image/png" ||
-      file.type === "image/jpeg" ||
-      file.type === "image/gif"
-    ) {
-      // TODO ここにapiいれる
-      const uploadedImageUrl = await uploadImage();
-      simpleMde.codemirror.replaceSelection("![](" + uploadedImageUrl + ")");
-    }
-  };
-
-  const handlePaste = async (
-    instance: CodeMirror.Editor,
-    e: React.ClipboardEvent
-  ) => {
-    // e.clipboardDataが存在し、ファイルが含まれているか確認
-    if (
-      !e.clipboardData ||
-      !e.clipboardData.files ||
-      e.clipboardData.files.length === 0
-    ) {
-      return;
-    }
-
-    const files = e.clipboardData.files;
-    const file = files[0];
-
-    if (
-      file.type === "image/png" ||
-      file.type === "image/jpeg" ||
-      file.type === "image/gif"
-    ) {
-      // TODO ここにapiいれる
-      const uploadedImageUrl = await uploadImage();
-      simpleMde.codemirror.replaceSelection("![](" + uploadedImageUrl + ")");
-    }
-  };
-
-  const getInstance = (instance: EasyMDE) => {
-    simpleMde = instance;
   };
 
   // useMemoを使用しないと、markdownValueが変わるたびに
@@ -129,8 +64,8 @@ export const MarkdownEditor = ({
   return (
     <SimpleMde
       id="simple-mde"
-      getMdeInstance={getInstance}
-      events={{ drop: handleDrop, paste: handlePaste }}
+      getMdeInstance={getEasyMDEInstance}
+      events={{ drop: easyMDEHandleDrop, paste: easyMDEHandlePaste }}
       value={markdownValue}
       onChange={onChange}
       style={{ width: "50%" }}
