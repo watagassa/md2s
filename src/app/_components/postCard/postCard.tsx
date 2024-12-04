@@ -8,6 +8,7 @@ import {
   Spacer,
   Box,
   Text,
+  Tag
 } from "@yamada-ui/react";
 import { HeartIcon } from "@yamada-ui/lucide";
 import { type Article } from "@/types/post";
@@ -47,9 +48,14 @@ export function PostCard({ post }: CardProps) {
         <CardFooter>
           <Flex gap="md">
             {post.tags.map((tag) => (
-              <Card key={tag.id} paddingInline="sm" bgColor={"neutral.50"}>
+              <Tag
+                key={tag.id}
+                paddingInline="sm"
+                bgColor={"neutral.50"}
+                color={"black"}
+              >
                 {tag.name}
-              </Card>
+              </Tag>
             ))}
           </Flex>
           <Spacer />

@@ -30,14 +30,11 @@ const testMd = `
 `;
 
 const testMarp = `
----
-marp: true
-theme: default
-paginate: true
----
+<!-- marp: true -->
+<!-- theme: default -->
+<!-- paginate: true -->
 
 # 猫の可愛さについて
-
 ---
 
 ## 猫の特徴
@@ -78,11 +75,28 @@ paginate: true
 
 export const testPostData = {
   id: 1,
+  create_user_id: "387a4e2d-5b8d-4d-9035-ee95680b66b4",
   user_name: "usr_name",
   user_icon:
     "https://lh3.googleusercontent.com/a/ACg8ocKbLTbImuR5zomWyqMHS79Yk2T7-ypmnS1-hjF6MZX8Wtn1C6M=s96-c",
-  md: testMd,
-  marp: testMarp,
+  title: "猫の可愛さについて",
+  main_MD: testMd,
+  slide_MD: testMarp,
+  created_at: "2021-01-01T00:00:00Z",
+  updated_at: "2021-01-01T00:00:00Z",
+  like_count: 7,
+  public: true,
+  qiita_article: true,
+  tags: [
+    {
+      id: "1",
+      name: "tag1",
+    },
+    {
+      id: "2",
+      name: "tag2",
+    },
+  ],
 };
 
 export const testPostData2 = [
