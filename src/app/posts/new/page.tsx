@@ -12,8 +12,13 @@ import {
   Center,
   Flex,
   Input,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
   ScrollArea,
   Spacer,
+  useDisclosure,
   Wrap,
 } from "@yamada-ui/react";
 import { useAtomValue } from "jotai";
@@ -28,9 +33,10 @@ const NewPost = () => {
   const [markdownValue, setMarkdownValue] = useState("");
   const [marpValue, setMarpValue] = useState("");
   const [isMarkdownView, setIsMarkdownView] = useState(true);
-
+  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Box p={"normal"}>
+      {/* タイトルとタグ */}
       <Flex>
         <Box marginBottom={"sm"} w={"50%"}>
           <Flex pb={"sm"}>
@@ -51,9 +57,44 @@ const NewPost = () => {
             />
           </Flex>
         </Box>
-        <Spacer />
+        {/* qiitaの記事インポート */}
         <Box>
-          <Wrap gap={"md"} marginTop={"xl"} marginInline={"normal"}>
+          <Flex>
+            <Spacer></Spacer>
+            <Button
+              colorScheme={"success"}
+              onClick={() => {
+                onOpen();
+              }}
+              m={"sm"}
+            >
+              qiitaの記事をimport
+            </Button>
+            {/* ボタンを押したら出てくる */}
+            <Modal open={isOpen} onClose={onClose}>
+              <Center>
+                <ModalHeader>注意</ModalHeader>
+              </Center>
+
+              <ModalBody>
+                <Center>qiitaの記事をimportすると</Center>
+                <Center>現在のmarkdownを上書きしてしまいます</Center>
+              </ModalBody>
+
+              <ModalFooter>
+                <Button
+                  onClick={() => {
+                    onClose();
+                  }}
+                >
+                  cancel
+                </Button>
+                <Button colorScheme="primary">importする!!</Button>
+              </ModalFooter>
+            </Modal>
+          </Flex>
+          {/* markdownからslideにする */}
+          <Wrap gap={"md"} marginInline={"normal"}>
             <CreateSlideInMd />
             <MdSlideToggle
               isMarkdownView={isMarkdownView}
@@ -96,6 +137,7 @@ const NewPost = () => {
           </ScrollArea>
         </Flex>
       )}
+      {/* 下書き保存,投稿ボタン */}
       <Center
         h={"15"}
         w={"50%"}
