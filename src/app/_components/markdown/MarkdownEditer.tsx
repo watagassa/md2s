@@ -18,6 +18,77 @@ export const MarkdownEditor = ({
   const onChange = (value: string) => {
     setMarkdownValue(value);
   };
+
+  let simpleMde: EasyMDE;
+
+  const uploadImage = async () => {
+    try {
+      return "アップロード中";
+      // 画像アップロード処理を実行
+    } catch (error) {
+      console.error("アップロードエラー", error);
+      return "アップロードできませんでした";
+    }
+  };
+
+  const handleDrop = async (
+    instance: CodeMirror.Editor,
+    e: React.DragEvent
+  ) => {
+    // e.clipboardDataまたはe.dataTransferが存在するか確認
+    if (
+      !e.dataTransfer ||
+      !e.dataTransfer.files ||
+      e.dataTransfer.files.length === 0
+    ) {
+      return;
+    }
+
+    const files = e.dataTransfer.files;
+    const file = files[0];
+
+    if (
+      file.type === "image/png" ||
+      file.type === "image/jpeg" ||
+      file.type === "image/gif"
+    ) {
+      // TODO ここにapiいれる
+      const uploadedImageUrl = await uploadImage();
+      simpleMde.codemirror.replaceSelection("![](" + uploadedImageUrl + ")");
+    }
+  };
+
+  const handlePaste = async (
+    instance: CodeMirror.Editor,
+    e: React.ClipboardEvent
+  ) => {
+    // e.clipboardDataが存在し、ファイルが含まれているか確認
+    if (
+      !e.clipboardData ||
+      !e.clipboardData.files ||
+      e.clipboardData.files.length === 0
+    ) {
+      return;
+    }
+
+    const files = e.clipboardData.files;
+    const file = files[0];
+
+    if (
+      file.type === "image/png" ||
+      file.type === "image/jpeg" ||
+      file.type === "image/gif"
+    ) {
+      // TODO ここにapiいれる
+      const uploadedImageUrl = await uploadImage();
+      simpleMde.codemirror.replaceSelection("![](" + uploadedImageUrl + ")");
+    }
+  };
+
+  const getInstance = (instance: EasyMDE) => {
+    simpleMde = instance;
+  };
+
   // useMemoを使用しないと、markdownValueが変わるたびに
   // optionが生成され、再レンダリングが起きる by ChatGPT
   const editorOptions: EasyMDE.Options = useMemo(() => {
@@ -57,6 +128,9 @@ export const MarkdownEditor = ({
   }, []); // オプションが固定であれば空配列でOK
   return (
     <SimpleMde
+      id="simple-mde"
+      getMdeInstance={getInstance}
+      events={{ drop: handleDrop, paste: handlePaste }}
       value={markdownValue}
       onChange={onChange}
       style={{ width: "50%" }}
