@@ -7,17 +7,23 @@ import { userSessionAtom } from "@/app/atoms/atom";
 import { Markdown } from "@yamada-ui/markdown";
 import {
   Box,
+  Button,
   Card,
+  Center,
   Flex,
   Input,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
   ScrollArea,
   Spacer,
-  VStack,
+  useDisclosure,
+  Wrap,
 } from "@yamada-ui/react";
 import { useAtomValue } from "jotai";
 import { redirect } from "next/navigation";
 import React, { useState } from "react";
-
 const NewPost = () => {
   const userSession = useAtomValue(userSessionAtom);
   // loginしていなかったらloginページに遷移
@@ -27,11 +33,12 @@ const NewPost = () => {
   const [markdownValue, setMarkdownValue] = useState("");
   const [marpValue, setMarpValue] = useState("");
   const [isMarkdownView, setIsMarkdownView] = useState(true);
-
+  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Box p={"normal"}>
+      {/* タイトルとタグ */}
       <Flex>
-        <Box marginBottom={"sm"}>
+        <Box marginBottom={"sm"} w={"50%"}>
           <Flex pb={"sm"}>
             <Input
               type="text"
@@ -50,15 +57,50 @@ const NewPost = () => {
             />
           </Flex>
         </Box>
-        <Spacer />
+        {/* qiitaの記事インポート */}
         <Box>
-          <Flex gap={"md"} marginTop={"xl"} marginInline={"normal"}>
+          <Flex>
+            <Spacer></Spacer>
+            <Button
+              colorScheme={"success"}
+              onClick={() => {
+                onOpen();
+              }}
+              m={"sm"}
+            >
+              qiitaの記事をimport
+            </Button>
+            {/* ボタンを押したら出てくる */}
+            <Modal open={isOpen} onClose={onClose}>
+              <Center>
+                <ModalHeader>注意</ModalHeader>
+              </Center>
+
+              <ModalBody>
+                <Center>qiitaの記事をimportすると</Center>
+                <Center>現在のmarkdownを上書きしてしまいます</Center>
+              </ModalBody>
+
+              <ModalFooter>
+                <Button
+                  onClick={() => {
+                    onClose();
+                  }}
+                >
+                  cancel
+                </Button>
+                <Button colorScheme="primary">importする!!</Button>
+              </ModalFooter>
+            </Modal>
+          </Flex>
+          {/* markdownからslideにする */}
+          <Wrap gap={"md"} marginInline={"normal"}>
             <CreateSlideInMd />
             <MdSlideToggle
               isMarkdownView={isMarkdownView}
               setIsMarkdownView={setIsMarkdownView}
             />
-          </Flex>
+          </Wrap>
         </Box>
       </Flex>
       {isMarkdownView ? (
@@ -67,16 +109,16 @@ const NewPost = () => {
             markdownValue={markdownValue}
             setMarkdownValue={setMarkdownValue}
           />
-          <Card
-            w={"50%"}
-            bgColor={"whiteAlpha.950"}
-            border={"1px solid #CED4DA"}
-            boxShadow={"0"}
-          >
-            <Markdown minW={"50%"} p={"md"}>
-              {markdownValue}
-            </Markdown>
-          </Card>
+          <ScrollArea h={"63vh"} w={"50%"}>
+            <Card
+              bgColor={"whiteAlpha.950"}
+              border={"1px solid #CED4DA"}
+              boxShadow={"0"}
+              minH={"full"}
+            >
+              <Markdown p={"md"}>{markdownValue}</Markdown>
+            </Card>
+          </ScrollArea>
         </Flex>
       ) : (
         <Flex>
@@ -84,18 +126,36 @@ const NewPost = () => {
             markdownValue={marpValue}
             setMarkdownValue={setMarpValue}
           />
-          <Card
-            w={"50%"}
-            bgColor={"#CED4DA"}
-            border={"1px solid #CED4DA"}
-            boxShadow={"0"}
-          >
-            <ScrollArea innerProps={{ as: VStack, gap: "1px" }}>
+          <ScrollArea h={"lg"} w={"50%"}>
+            <Card
+              bgColor={"#CED4DA"}
+              border={"1px solid #CED4DA"}
+              boxShadow={"0"}
+            >
               <SlidePreview slide={marpValue}></SlidePreview>
-            </ScrollArea>
-          </Card>
+            </Card>
+          </ScrollArea>
         </Flex>
       )}
+      {/* 下書き保存,投稿ボタン */}
+      <Center
+        h={"15"}
+        w={"50%"}
+        position={"fixed"}
+        borderBlock={"black"}
+        boxShadow="0px 0px 1px black"
+        right={"0"}
+        bottom={"0"}
+        bgColor={"white"}
+      >
+        <Spacer />
+        <Flex gapX={"md"} p="lg">
+          <Button type="submit">下書き保存</Button>
+          <Button colorScheme={"info"} type="submit">
+            公開投稿
+          </Button>
+        </Flex>
+      </Center>
     </Box>
   );
 };

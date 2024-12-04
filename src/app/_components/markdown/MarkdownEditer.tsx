@@ -2,6 +2,11 @@
 import React, { useMemo } from "react";
 import dynamic from "next/dynamic";
 import "easymde/dist/easymde.min.css";
+import {
+  easyMDEHandleDrop,
+  easyMDEHandlePaste,
+  getEasyMDEInstance,
+} from "@/app/_utils/markdown_editor/ImageFnc/editorEvent";
 
 const SimpleMde = dynamic(() => import("react-simplemde-editor"), {
   ssr: false,
@@ -18,10 +23,13 @@ export const MarkdownEditor = ({
   const onChange = (value: string) => {
     setMarkdownValue(value);
   };
+
   // useMemoを使用しないと、markdownValueが変わるたびに
   // optionが生成され、再レンダリングが起きる by ChatGPT
   const editorOptions: EasyMDE.Options = useMemo(() => {
     return {
+      maxHeight: "50vh",
+      lineNumbers: true, // 行番号を表示
       toolbar: [
         "bold", // 太字
         "italic", // 斜体
@@ -55,6 +63,9 @@ export const MarkdownEditor = ({
   }, []); // オプションが固定であれば空配列でOK
   return (
     <SimpleMde
+      id="simple-mde"
+      getMdeInstance={getEasyMDEInstance}
+      events={{ drop: easyMDEHandleDrop, paste: easyMDEHandlePaste }}
       value={markdownValue}
       onChange={onChange}
       style={{ width: "50%" }}
