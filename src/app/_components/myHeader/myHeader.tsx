@@ -30,20 +30,21 @@ const Header = ({ session }: { session: Session | null }) => {
   return (
     <Flex
       bgColor="whiteAlpha.950"
-      p="1.5"
+      py="md"
+      px="xl"
       boxShadow="0px 0px 5px black"
       gap="md"
     >
       {userSession ? (
         <>
-          <Image src="/md2s_icon.svg" alt="" />
+          <Image src="/md2s_icon.svg" alt="" onClick={() => redirect("/")} />
           <Spacer />
           <Card bgColor="neutral.50">
             <InputGroup w="full" h="full">
               <InputLeftElement>
                 <Icon as={PiMagnifyingGlassBold}></Icon>
               </InputLeftElement>
-              <Input type="text" placeholder="記事検索"></Input>
+              <Input type="text" placeholder="記事検索" w={"md"}></Input>
             </InputGroup>
           </Card>
           <Spacer />
@@ -53,14 +54,22 @@ const Header = ({ session }: { session: Session | null }) => {
             </Button>
           </Center>
           <Center>
-            {/* TODO Image押したら折りたたみのログアウトとuserページ遷移のボタンが出てくる */}
             <IconPopover />
           </Center>
         </>
       ) : (
         <>
-          <Image src="/md2s_icon.svg" alt="" />
-          <Spacer></Spacer>
+          <Image src="/md2s_icon.svg" alt="" onClick={() => redirect("/")} />
+          <Spacer />
+          <Card bgColor="neutral.50">
+            <InputGroup w="full" h="full">
+              <InputLeftElement>
+                <Icon as={PiMagnifyingGlassBold}></Icon>
+              </InputLeftElement>
+              <Input type="text" placeholder="記事検索" w={"md"}></Input>
+            </InputGroup>
+          </Card>
+          <Spacer />
           <Link href="/login">
             <Button colorScheme="success">ログイン</Button>
           </Link>
