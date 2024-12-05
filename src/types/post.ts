@@ -18,3 +18,22 @@ export interface Article {
   qiita_article: boolean;
   tags: Tag[];
 }
+
+export interface PostArticle {
+  create_user_id: string;
+  title: string;
+  main_MD: string;
+  slide_MD: string;
+  public: boolean;
+  qiita_article: boolean;
+  tags: string[];
+}
+export const DefaultPostArticle = {
+  create_user_id: "",
+  title: "",
+  main_MD: "",
+  slide_MD: "",
+  public: false,
+  qiita_article: false,
+  tags: [],
+};
