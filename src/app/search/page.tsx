@@ -12,14 +12,13 @@ import {
   Card,
 } from "@yamada-ui/react";
 import { SearchIcon } from "@yamada-ui/lucide";
-import { testPostData } from "../_testData";
 import { Article } from "@/types/post";
 import { redirect } from "next/navigation";
 import { getArticles } from "../api/article/article";
 
 export default function SearchPost() {
   // const posts = testPostData2; //取得したユーザーが投稿した記事データ
-  const [posts, setPosts] = useState<Article[]>([testPostData]);
+  const [posts, setPosts] = useState<Article[]>([]);
   const [inputKeyword, setInputKeyword] = useState("");
   const searchPosts = async () => {
     const p = await getArticles(5, 0);

@@ -13,7 +13,6 @@ import {
 } from "@yamada-ui/react";
 import { SearchIcon } from "@yamada-ui/lucide";
 import { Article } from "@/types/post";
-import { testPostData } from "@/app/_testData";
 import { redirect } from "next/navigation";
 import { searchArticles } from "@/app/api/article/article";
 
@@ -24,7 +23,7 @@ export default function SearchPostKeyword({
 }) {
   const { keyword } = use(params); // Promiseを解決
   // const posts = testPostData2; //取得したユーザーが投稿した記事データ
-  const [posts, setPosts] = useState<Article[]>([testPostData]);
+  const [posts, setPosts] = useState<Article[]>([]);
   const [inputKeyword, setInputKeyword] = useState(decodeURIComponent(keyword));
   const searchPosts = async () => {
     // const p = await getArticles(5, 0);
