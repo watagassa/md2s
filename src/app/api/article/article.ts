@@ -13,7 +13,6 @@ export const createArticle = async (
       method: "POST",
       headers: {
         Authorization: `Bearer ${idToken}`, // トークンをヘッダーに含める
-        "Content-Type": "application/json",
       },
       body: JSON.stringify(articleData),
     });
@@ -34,14 +33,19 @@ export const createArticle = async (
 
 //不特定記事一覧取得
 export const getArticles = async (
-  limit: number, 
+  limit: number,
   offset: number
 ): Promise<Article[] | null> => {
-  const getAPI = process.env.NEXT_PUBLIC_API_URL + "/articles?limit=" + limit + "&offset=" + offset;
+  const getAPI =
+    process.env.NEXT_PUBLIC_API_URL +
+    "/articles?limit=" +
+    limit +
+    "&offset=" +
+    offset;
 
   try {
     const res = await fetch(getAPI, {
-      method: "GET"
+      method: "GET",
     });
 
     if (!res.ok) {
@@ -52,15 +56,17 @@ export const getArticles = async (
     const data: Article[] = await res.json();
     console.log(data);
     return data;
-  } catch(error) {
+  } catch (error) {
     console.error("Error got articles:", error);
     return null;
   }
 };
 
 //特定のユーザーの記事一覧取得
-export const getUserArticles = async ( userId: UUID ): Promise<Article[] | null> => {
-  const user_id = userId
+export const getUserArticles = async (
+  userId: UUID
+): Promise<Article[] | null> => {
+  const user_id = userId;
   const getAPI = process.env.NEXT_PUBLIC_API_URL + "/articles/user/" + user_id;
 
   try {
@@ -68,7 +74,7 @@ export const getUserArticles = async ( userId: UUID ): Promise<Article[] | null>
       method: "POST",
     });
 
-    if(!res.ok) {
+    if (!res.ok) {
       console.error(`Failed to get articles: ${res.status}`);
       return null;
     }
@@ -76,40 +82,43 @@ export const getUserArticles = async ( userId: UUID ): Promise<Article[] | null>
     const data: Article[] = await res.json();
     console.log("ユーザの記事データ:", data);
     return data;
-  } catch(error) {
+  } catch (error) {
     console.log("Error got articles", error);
     return null;
   }
-}
+};
 
 //特定記事取得
 export const getParticularArticle = async (
-  article_id: number,
-): Promise<Article | null > => {
+  article_id: number
+): Promise<Article | null> => {
   const getAPI = process.env.NEXT_PUBLIC_API_URL + "/articles/" + article_id;
   try {
     const res = await fetch(getAPI, {
-      method: "GET"
+      method: "GET",
     });
 
-    if(!res.ok) {
+    if (!res.ok) {
       console.error(`Failed to get article: ${res.status}`);
       return null;
     }
 
     const data: Article = await res.json();
-    console.log("取得した記事データ:",data);
+    console.log("取得した記事データ:", data);
     return data;
-  } catch(error) {
+  } catch (error) {
     console.error("Error got articles:", error);
     return null;
   }
-}
+};
 
 //記事検索
-export const searchArticles = async (keyword: string): Promise<Article[] | null> => {
-  const getAPI = process.env.NEXT_PUBLIC_API_URL + "/articles/search?keyword=" + keyword;
-  try{
+export const searchArticles = async (
+  keyword: string
+): Promise<Article[] | null> => {
+  const getAPI =
+    process.env.NEXT_PUBLIC_API_URL + "/articles/search?keyword=" + keyword;
+  try {
     const res = await fetch(getAPI, {
       method: "GET",
     });
