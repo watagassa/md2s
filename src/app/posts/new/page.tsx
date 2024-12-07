@@ -4,6 +4,7 @@ import MarkdownPreview from "@/app/_components/markdown/MarkdownPreview";
 import CreateSlideInMd from "@/app/_components/mdToSlide/CreateSlideInMd";
 import MdSlideToggle from "@/app/_components/mdToSlide/MdSlideToggle";
 import SlidePreview from "@/app/_components/slide/SlidePreview";
+import { createArticle } from "@/app/api/article/article";
 import { createTags, getAllTags } from "@/app/api/tag/tag";
 import { userSessionAtom } from "@/app/atoms/atom";
 import { ArticleRequest, Tag } from "@/types/post";
@@ -89,12 +90,20 @@ const NewPost = () => {
       // dbに元からあって記事にあるタグと、dbに今登録したタグを合体
       tags: tags,
     };
-    console.log(ArticleData);
+    if (userSession.idToken) {
+      await createArticle(userSession.idToken, ArticleData);
+    }
   };
 
   return (
     <Box p={"normal"}>
-      <form>
+      <form
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            e.preventDefault(); // エンターキーによる送信を無効化
+          }
+        }}
+      >
         {/* タイトルとタグ */}
         <Flex>
           <Box marginBottom={"sm"} w={"50%"}>

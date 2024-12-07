@@ -13,7 +13,6 @@ export const createArticle = async (
       method: "POST",
       headers: {
         Authorization: `Bearer ${idToken}`, // トークンをヘッダーに含める
-        "Content-Type": "application/json",
       },
       body: JSON.stringify(articleData),
     });
