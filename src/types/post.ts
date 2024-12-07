@@ -19,6 +19,22 @@ export interface Article {
   tags: Tag[];
 }
 
+export const DefaultArticle: Article = {
+  id: 0,
+  create_user_id: "",
+  user_name: "",
+  user_icon: "",
+  title: "",
+  main_MD: "",
+  slide_MD: "",
+  created_at: "0000-01-01T00:00:00Z",
+  updated_at: "0000-01-01T00:00:00Z",
+  like_count: 0,
+  public: true,
+  qiita_article: false,
+  tags: [],
+};
+
 export type ArticleRequest = {
   title: string;
   main_MD: string;
