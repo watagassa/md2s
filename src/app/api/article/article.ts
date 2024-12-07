@@ -113,9 +113,7 @@ export const getParticularArticle = async (
 };
 
 //記事検索
-export const searchArticles = async (
-  keyword: string
-): Promise<Article[] | null> => {
+export const searchArticles = async (keyword: string): Promise<Article[]> => {
   const getAPI =
     process.env.NEXT_PUBLIC_API_URL + "/articles/search?keyword=" + keyword;
   try {
@@ -125,7 +123,7 @@ export const searchArticles = async (
 
     if (!res.ok) {
       console.error(`Failed to create article: ${res.status}`);
-      return null;
+      return [];
     }
 
     const data: Article[] = await res.json();
@@ -133,6 +131,6 @@ export const searchArticles = async (
     return data;
   } catch (error) {
     console.error("Error got articles:", error);
-    return null;
+    return [];
   }
 };
