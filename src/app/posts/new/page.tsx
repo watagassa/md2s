@@ -25,7 +25,7 @@ import {
 } from "@yamada-ui/react";
 import { useAtomValue } from "jotai";
 import { redirect } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 const NewPost = () => {
   const userSession = useAtomValue(userSessionAtom);
   // loginしていなかったらloginページに遷移
