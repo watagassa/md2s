@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { PostCard } from "@/app/_components/postCard/postCard";
 import {
   Box,
@@ -14,15 +14,21 @@ import {
 import { SearchIcon } from "@yamada-ui/lucide";
 import { Article } from "@/types/post";
 import { redirect } from "next/navigation";
-import { getArticles } from "../api/article/article";
+import { searchArticles } from "@/app/api/article/article";
 
-export default function SearchPost() {
+export default function SearchPostKeyword({
+  params,
+}: {
+  params: Promise<{ keyword: string }>;
+}) {
+  const { keyword } = use(params); // Promiseを解決
   // const posts = testPostData2; //取得したユーザーが投稿した記事データ
   const [posts, setPosts] = useState<Article[]>([]);
-  const [inputKeyword, setInputKeyword] = useState("");
+  const [inputKeyword, setInputKeyword] = useState(decodeURIComponent(keyword));
   const searchPosts = async () => {
-    const p = await getArticles(5, 0);
-    setPosts(p as Article[]);
+    // const p = await getArticles(5, 0);
+    // setPosts(p as Article[]);
+    setPosts(await searchArticles(inputKeyword));
   };
   useEffect(() => {
     searchPosts();

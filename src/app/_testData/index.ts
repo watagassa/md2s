@@ -101,7 +101,7 @@ export const testPostData = {
 
 export const testPostData2 = [
   {
-    id: "1",
+    id: 1,
     create_user_id: "387a4e2d-5b8d-4d-9035-ee95680b66b4",
     user_name: "user1",
     user_icon: "/usr_icon.png",
@@ -115,17 +115,17 @@ export const testPostData2 = [
     qiita_article: true,
     tags: [
       {
-        id: "1",
+        id: 1,
         word: "tag1",
       },
       {
-        id: "2",
+        id: 2,
         word: "tag2",
       },
     ],
   },
   {
-    id: "2",
+    id: 2,
     create_user_id: "387a4e2d-5b8d-4d-9035-ee95680b66b4",
     user_name: "user2",
     user_icon: "/usr_icon.png",
@@ -139,17 +139,17 @@ export const testPostData2 = [
     qiita_article: false,
     tags: [
       {
-        id: "1",
+        id: 1,
         word: "tag1",
       },
       {
-        id: "2",
+        id: 2,
         word: "tag2",
       },
     ],
   },
   {
-    id: "3",
+    id: 3,
     create_user_id: "387a4e2d-5b8d-4d-9035-ee95680b66b4",
     user_name: "user2",
     user_icon: "/usr_icon.png",
@@ -163,11 +163,11 @@ export const testPostData2 = [
     qiita_article: false,
     tags: [
       {
-        id: "1",
+        id: 1,
         word: "tag1",
       },
       {
-        id: "2",
+        id: 2,
         word: "tag2",
       },
     ],
@@ -179,6 +179,7 @@ export const testUserData = {
   name: "user1",
   icon: "/usr_icon.png",
   google_id: "151916161991",
+  qiita_link: false,
   total_posts_articles: 3,
   total_get_likes: 10,
 };
