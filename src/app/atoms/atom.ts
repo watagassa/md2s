@@ -1,4 +1,6 @@
+import { User } from "@/types/user";
 import { atom } from "jotai";
+import { loadable } from "jotai/utils";
 
 type SessionType = {
   idToken?: string;
@@ -7,3 +9,7 @@ type SessionType = {
 };
 // ユーザー情報を保持するatom
 export const userSessionAtom = atom<SessionType | null>(null);
+
+// ユーザーのログイン情報を保持するatom
+export const userAtom = atom<User | null>(null);
+export const userAtomLoadable = loadable(userAtom);

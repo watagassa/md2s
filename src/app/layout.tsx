@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { M_PLUS_1p } from "next/font/google";
-// import "./globals.css";
 
 import { getServerSession } from "next-auth/next";
 import NextAuthProvider from "@/app/providers";
@@ -31,7 +30,6 @@ export default async function RootLayout({
 }>) {
   const session = await getServerSession(nextAuthOptions);
 
-
   return (
     <html lang="ja">
       <body className={`${mPlus.className}`}>
@@ -39,7 +37,7 @@ export default async function RootLayout({
         {/* <YamadaUIScripts /> */}
         <UIProvider>
           <NextAuthProvider>
-            <Header session={session}  />
+            <Header session={session} />
             {children}
           </NextAuthProvider>
         </UIProvider>

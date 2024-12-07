@@ -1,4 +1,6 @@
+
 import { User } from "@/types/user";
+
 import { Session } from "next-auth";
 
 //ユーザー登録 API
@@ -55,9 +57,14 @@ export const getQiitaToken = async (code: string, session: Session | null) => {
     }
   } catch (error) {
     console.error("Error fetching qiita token:", error);  
-}
+  }
+};
 //ユーザー(自分)取得 API
 export const getUser = async (session: Session | null): Promise<User | null> => {
+
+
+
+
   const getAPI = process.env.NEXT_PUBLIC_API_URL + "/users";
   try {
     if (session?.idToken) {

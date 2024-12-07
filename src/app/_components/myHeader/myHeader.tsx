@@ -16,13 +16,14 @@ import {
   ButtonGroup,
 } from "@yamada-ui/react";
 import { useAtom } from "jotai";
-import { userSessionAtom } from "@/app/atoms/atom";
+import { userAtom, userSessionAtom } from "@/app/atoms/atom";
 import { useEffect } from "react";
 import IconPopover from "./IconPopover";
 import { redirect } from "next/navigation";
-import { getQiitaCode, getQiitaToken } from "@/app/api/user/user";
+import { getQiitaCode, getQiitaToken, getUser } from "@/app/api/user/user";
 const Header = ({ session }: { session: Session | null }) => {
   const [userSession, setUserSession] = useAtom(userSessionAtom);
+  const [user, setUser] = useAtom(userAtom);
 
   useEffect(() => {
     const allQueryParameters = new URLSearchParams(window.location.search);
@@ -39,9 +40,16 @@ const Header = ({ session }: { session: Session | null }) => {
         name: session.user.name,
         image: session.user.image,
       });
+
+      const fetchUserData = async () => {
+        const myData = await getUser(session);
+        if (myData) {
+          setUser(myData);
+        }
+      };
+      fetchUserData();
     }
-    console.log(session?.idToken, session?.user?.name, session?.user?.image);
-  }, [session, setUserSession]);
+  }, [session, setUser, setUserSession]);
 
   return (
     <Flex
@@ -65,12 +73,19 @@ const Header = ({ session }: { session: Session | null }) => {
           </Card>
           <Spacer />
           <ButtonGroup gap="sm">
-            <Button
-              colorScheme="lime"
-              onClick={() => void getQiitaCode(session)}
-            >
-              qiita連携
-            </Button>
+            {user?.qiita_link ? (
+              <Button
+                colorScheme="lime"
+                onClick={() => void getQiitaCode(session)}
+              >
+                qiita連携
+              </Button>
+            ) : (
+              <Button colorScheme="lime" onClick={() => redirect("/qiita")}>
+                qiita記事取得
+              </Button>
+            )}
+
             <Button colorScheme="link" onClick={() => redirect("/posts/new")}>
               投稿する
             </Button>

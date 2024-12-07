@@ -1,113 +1,107 @@
-"use client"
+"use client";
 
-import React, { useState, useEffect } from "react";
-import { testPostData2, testUserData } from "@/app/_testData";
 import { PostCard } from "@/app/_components/postCard/postCard";
+import { Article } from "@/types/post";
 import {
-  Box,
-  VStack,
   Avatar,
+  Box,
+  Center,
   Flex,
-  Text,
-  Spacer,
-  HStack,
   SkeletonCircle,
   SkeletonText,
-  Center,
-  Button,
+  Text,
+  VStack,
 } from "@yamada-ui/react";
+import { useAtom } from "jotai";
 import { useSession } from "next-auth/react";
-import { getUser } from "../api/user/user";
-import { User } from "@/types/user";
-import { Article } from "@/types/post";
-import { getUserArticles } from "../api/article/article";
 import { redirect } from "next/navigation";
+import { useEffect, useState } from "react";
+import { getUserArticles } from "../api/article/article";
+import { userAtom } from "../atoms/atom";
 
-const page = () => {
-  // const posts = testPostData2; //取得したユーザーが投稿した記事データ
-  // const user = testUserData; //取得したユーザーデータ
-
-  const { data: session, status } = useSession();
-  const [user, setUser] = useState<User | null>(null); //取得したユーザーデータ
-  const [posts, setPosts] = useState<Article[] | null>(null); //取得したユーザーが投稿した記事データ
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      const userResult = await getUser(session);
-      setUser(userResult); // User | null を直接セット
-    };
-
-    fetchUser();
-  }, [session]);
+const Page = () => {
+  const { status } = useSession();
+  const [posts, setPosts] = useState<Article[] | null>(null);
+  const [user] = useAtom(userAtom);
 
   useEffect(() => {
-    const fetchUser = async () => {
-      if(user?.id != null){
-        const userResult = await getUserArticles(user?.id);
-        setPosts(userResult); // User | null を直接セット
-      }else{
-        console.log("user.idが取得できませんでした。")
-        setPosts(null);
-      }
-    };
+    if (status === "authenticated" && user) {
+      getUserArticles(user.id).then((data) => setPosts(data));
+    }
+  }, [status, user]);
 
-    fetchUser();
-  }, [session]);
+  if (status === "loading") {
+    return (
+      <Center height="100vh">
+        <Text>Loading...</Text>
+      </Center>
+    );
+  }
+
+  if (status !== "authenticated") {
+    redirect("/login");
+    return null;
+  }
 
   return (
-    <Box bgColor={"blackAlpha.50"} py={"md"}>
-      <Flex justify="center" m={"normal"}>
-<!--         <Flex
-          w="max(50%, sm)"
-          p={"normal"}
-          bgColor={"whiteAlpha.950"}
-        > -->
-        {user != null ? (
-          <Flex w="max(50%, sm)" p={"normal"} bgColor={"whiteAlpha.950"}>
+    <Box bgColor={"gray.50"} py={8}>
+      <Flex justify="center" mb={6}>
+        {user ? (
+          <Flex
+            direction={{ base: "column", sm: "row" }}
+            w="90%"
+            maxW="600px"
+            p={6}
+            bgColor={"white"}
+            borderRadius={"lg"}
+            boxShadow="md"
+          >
             <Avatar size="xl" name={user.name} src={user.icon_url} />
-            <Box px={"lg"}>
-              <Text fontSize={"3xl"}>{user.name}</Text>
-              <HStack pt={"md"}>
-                {/* TODO:user名が伸びると下の二つの要素の間が離れていくの修正できたらいいね... */}
-                <Text>投稿数：{user.total_posts_articles}</Text>
-                <Spacer />
-                <Text>獲得いいね数：{user.total_get_likes}</Text>
-              </HStack>
+            <Box ml={{ sm: 6 }} mt={{ base: 4, sm: 0 }}>
+              <Text fontSize={"2xl"} fontWeight="bold">
+                {user.name}
+              </Text>
+              <Flex justify="space-between" mt={4} gap={4}>
+                <Text>投稿数: {user.total_posts_articles}</Text>
+                <Text>いいね数: {user.total_get_likes}</Text>
+              </Flex>
             </Box>
           </Flex>
         ) : (
-          <Flex w="max(50%, sm)" p={"normal"} bgColor={"whiteAlpha.950"}>
+          <Flex
+            direction={{ base: "column", sm: "row" }}
+            w="90%"
+            maxW="600px"
+            p={6}
+            bgColor={"white"}
+            borderRadius={"lg"}
+            boxShadow="md"
+          >
             <SkeletonCircle size="xl" />
-            <Box px={"lg"}>
-              <SkeletonText />
-              <HStack pt={"md"}>
-                {/* TODO:user名が伸びると下の二つの要素の間が離れていくの修正できたらいいね... */}
-                <SkeletonText />
-                <Spacer />
-                <SkeletonText />
-              </HStack>
+            <Box ml={{ sm: 6 }} mt={{ base: 4, sm: 0 }} flex="1">
+              <SkeletonText w="60%" />
+              <SkeletonText mt={4} />
             </Box>
           </Flex>
         )}
       </Flex>
-      <Flex justify="center">
-        <Text w="max(80%, sm)" p={"md"} fontSize={"lg"}>
+
+      <Flex justify="center" mb={4}>
+        <Text fontSize={"lg"} fontWeight="bold">
           投稿した記事
         </Text>
       </Flex>
-      {posts != null ? (
-        <VStack gap={"md"}>
+
+      {posts ? (
+        <VStack rounded="6">
           {posts.map((post) => (
             <PostCard key={post.id} post={post} />
           ))}
         </VStack>
       ) : (
         <Center>
-          <VStack gapY={"2xl"} margin={"xl"} >
+          <VStack gapY={"2xl"} margin={"xl"}>
             <Text textAlign={"center"}>まだ投稿がありません。</Text>
-            <Button colorScheme="link" onClick={() => redirect("/posts/new")} h={"sm"} marginInline={"3xl"} fontSize={"8xl"}>
-              投稿する
-            </Button>
           </VStack>
         </Center>
       )}
@@ -115,4 +109,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
