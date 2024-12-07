@@ -29,16 +29,9 @@ export const getQiitaCode = async (session: Session | null) => {
   const cliant_id = process.env.NEXT_PUBLIC_QIITA_CLIENT_ID;
   const api = `https://qiita.com/api/v2/oauth/authorize?client_id=${cliant_id}&scope=read_qiita&state=bb17785d811bb1913ef54b0a7657de780defaa2d`;
 
-  // api先にリダイレクト
   if (session?.idToken) {
-    if (window) {
-      const newWindow = window.open(
-        api,
-        "_blank",
-        "width=500,height=500,scrollbars=yes,resizable=yes"
-      );
-      newWindow?.focus();
-    }
+    // apiを叩いてcodeを取得
+    window.open(api, "_self");
   }
 };
 
