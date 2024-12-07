@@ -38,21 +38,6 @@ const NewPost = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [tagsWord, setTagsWord] = useState<string[]>([]);
   const [title, setTitle] = useState("");
-  // const [ArticleData, setArticleData] =
-  //   useState<ArticleRequest>(DefaultPostArticle);
-  // const renderFlgRef = useRef(false);
-  const [allTags, setAllTags] = useState<Tag[]>([]);
-  const firstSet = async () => {
-    setAllTags(await getAllTags());
-  };
-  useEffect(() => {
-    firstSet();
-  }, []);
-  useEffect(() => {
-    console.log("allTags", allTags);
-  }, [allTags]);
-
-  // const [tags, setTags] = useState<Tag[]>([]);
 
   // dbに登録されているtagに、新しい記事のtagがあるかを判別する
   const unMatchingTagsWord = (allTags: Tag[], tagsName: string[]) => {
@@ -74,6 +59,7 @@ const NewPost = () => {
     });
   };
   const submitHandler = async (isPublic: boolean) => {
+    const allTags = await getAllTags();
     // 作られてないタグ名
     const unCreateTagsName = unMatchingTagsWord(allTags, tagsWord);
     const createdTagsName = matchingTagsWord(allTags, tagsWord);
@@ -105,16 +91,6 @@ const NewPost = () => {
     };
     console.log(ArticleData);
   };
-
-  // useEffect(() => {
-  //   if (renderFlgRef.current && userSession.idToken) {
-  //     console.log(ArticleData);
-  //     // createArticle(userSession.idToken, ArticleData);
-  //   } else {
-  //     // 初回レンダリングスキップ
-  //     renderFlgRef.current = true;
-  //   }
-  // }, [ArticleData]);
 
   return (
     <Box p={"normal"}>

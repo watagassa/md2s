@@ -1,8 +1,14 @@
+import { createImageURL } from "@/app/api/image/image";
+import { fileToBase64 } from "./fileToBase64";
+
 let simpleMde: EasyMDE;
 
-const uploadImage = async () => {
+const uploadImage = async (image: File) => {
   try {
-    return "アップロード中";
+    const image64 = await fileToBase64(image);
+
+    const imageURL = await createImageURL(image64 as string);
+    return imageURL;
     // 画像アップロード処理を実行
   } catch (error) {
     console.error("アップロードエラー", error);
@@ -35,7 +41,7 @@ export const easyMDEHandleDrop = async (
     file.type === "image/gif"
   ) {
     // TODO ここにapiいれる
-    const uploadedImageUrl = await uploadImage();
+    const uploadedImageUrl = await uploadImage(file);
     // console.log(file, fileToBase64(file));
     simpleMde.codemirror.replaceSelection("![](" + uploadedImageUrl + ")");
   }
@@ -63,8 +69,7 @@ export const easyMDEHandlePaste = async (
     file.type === "image/gif"
   ) {
     // TODO ここにapiいれる
-    const uploadedImageUrl = await uploadImage();
-    // console.log(file, fileToBase64(file));
+    const uploadedImageUrl = await uploadImage(file);
     simpleMde.codemirror.replaceSelection("![](" + uploadedImageUrl + ")");
   }
 };

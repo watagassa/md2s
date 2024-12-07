@@ -1,9 +1,21 @@
-export const fileToBase64 = (file: File) => {
-  if (file) {
+export const fileToBase64 = (
+  file: File
+): Promise<string | ArrayBuffer | null> => {
+  return new Promise((resolve, reject) => {
+    if (!file) {
+      reject("No file provided");
+      return;
+    }
+
     const reader = new FileReader();
     reader.onload = () => {
-      console.log(reader.result);
+      const image64File = reader.result as string;
+      const image64 = image64File.split(",")[1];
+      resolve(image64); // Base64エンコードされたデータ
     };
-    return reader.readAsDataURL(file);
-  }
+    reader.onerror = (error) => {
+      reject(error); // エラー処理
+    };
+    reader.readAsDataURL(file);
+  });
 };
