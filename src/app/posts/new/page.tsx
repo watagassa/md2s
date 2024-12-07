@@ -1,11 +1,11 @@
 "use client";
 import MarkdownEditor from "@/app/_components/markdown/MarkdownEditer";
+import MarkdownPreview from "@/app/_components/markdown/MarkdownPreview";
 import CreateSlideInMd from "@/app/_components/mdToSlide/CreateSlideInMd";
 import MdSlideToggle from "@/app/_components/mdToSlide/MdSlideToggle";
 import SlidePreview from "@/app/_components/slide/SlidePreview";
 import { userSessionAtom } from "@/app/atoms/atom";
 import { DefaultPostArticle, PostArticle } from "@/types/post";
-import { Markdown } from "@yamada-ui/markdown";
 import {
   Box,
   Button,
@@ -155,7 +155,8 @@ const NewPost = () => {
                 boxShadow={"0"}
                 minH={"full"}
               >
-                <Markdown p={"md"}>{markdownValue}</Markdown>
+                <MarkdownPreview md={markdownValue}></MarkdownPreview>
+                {/* <Markdown p={"md"}>{markdownValue}</Markdown> */}
               </Card>
             </ScrollArea>
           </Flex>
