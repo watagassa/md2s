@@ -2,8 +2,9 @@ export interface Tag {
   id: string;
   word: string;
 }
+
 export interface Article {
-  id: string;
+  id: number;
   create_user_id: string;
   user_name: string;
   user_icon: string;
@@ -26,6 +27,7 @@ export type ArticleRequest = {
   qiita_article: boolean;
   tags: Tag[];
 };
+
 export const DefaultPostArticle: ArticleRequest = {
   title: "",
   main_MD: "",
