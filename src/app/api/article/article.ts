@@ -1,5 +1,5 @@
 import { Article, ArticleRequest } from "@/types/post";
-import { Session } from "next-auth";
+import { UUID } from "crypto";
 
 const baseURL = process.env.NEXT_PUBLIC_API_URL + "/articles";
 
@@ -59,8 +59,8 @@ export const getArticles = async (
 };
 
 //特定のユーザーの記事一覧取得
-export const getUserArticles = async (session: Session | null): Promise<Article[] | null> => {
-  const user_id = session?.idToken
+export const getUserArticles = async ( userId: UUID ): Promise<Article[] | null> => {
+  const user_id = userId
   const getAPI = process.env.NEXT_PUBLIC_API_URL + "/articles/user/" + user_id;
 
   try {
