@@ -1,4 +1,3 @@
-import { ImageRes } from "../../../types/image";
 const baseURL = process.env.NEXT_PUBLIC_API_URL + "/imgs";
 export const createImageURL = async (image: string): Promise<string | null> => {
   try {
