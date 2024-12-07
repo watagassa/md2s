@@ -26,7 +26,7 @@ export function PostCard({ post }: CardProps) {
     "月" +
     created_date.getUTCDate() +
     "日";
-
+  console.log(post);
   return (
     <Flex justify="center">
       <Card
