@@ -12,6 +12,7 @@ import {
 } from "@yamada-ui/react";
 import { HeartIcon } from "@yamada-ui/lucide";
 import { type Article } from "@/types/post";
+import { redirect } from "next/navigation";
 
 interface CardProps {
   post: Article;
@@ -42,7 +43,15 @@ export function PostCard({ post }: CardProps) {
             <Text>{date}</Text>
           </Box>
         </CardHeader>
-        <CardBody fontSize="xl" p={"sm"} pl={"normal"}>
+
+        <CardBody
+          onClick={() => {
+            redirect(`posts/${post.id}`);
+          }}
+          fontSize="xl"
+          p={"sm"}
+          pl={"normal"}
+        >
           {post.title}
         </CardBody>
         <CardFooter>
