@@ -41,16 +41,6 @@ const NewPost = () => {
   // const [ArticleData, setArticleData] =
   //   useState<ArticleRequest>(DefaultPostArticle);
   // const renderFlgRef = useRef(false);
-  const [allTags, setAllTags] = useState<Tag[]>([]);
-  const firstSet = async () => {
-    setAllTags(await getAllTags());
-  };
-  useEffect(() => {
-    firstSet();
-  }, []);
-  useEffect(() => {
-    console.log("allTags", allTags);
-  }, [allTags]);
 
   // const [tags, setTags] = useState<Tag[]>([]);
 
@@ -74,6 +64,7 @@ const NewPost = () => {
     });
   };
   const submitHandler = async (isPublic: boolean) => {
+    const allTags = await getAllTags();
     // 作られてないタグ名
     const unCreateTagsName = unMatchingTagsWord(allTags, tagsWord);
     const createdTagsName = matchingTagsWord(allTags, tagsWord);
