@@ -83,7 +83,7 @@ export const testPostData = {
   main_MD: testMd,
   slide_MD: testMarp,
   created_at: "2021-01-01T00:00:00Z",
-  updated_at: "2021-01-01T00:00:00Z",
+  updated_at: "2021-02-05T00:00:00Z",
   like_count: 7,
   public: true,
   qiita_article: true,

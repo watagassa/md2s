@@ -1,27 +1,46 @@
 "use client";
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import MdSlideToggle from "@/app/_components/mdToSlide/MdSlideToggle";
-import { Box, Flex, Avatar, Text, Tag, Center, VStack, HStack } from "@yamada-ui/react";
+import {
+  Box,
+  Flex,
+  Avatar,
+  Text,
+  Tag,
+  Center,
+  VStack,
+  HStack,
+} from "@yamada-ui/react";
 import MarkdownPreview from "@/app/_components/markdown/MarkdownPreview";
 import { testPostData } from "@/app/_testData";
 import SlidePreview from "@/app/_components/slide/SlidePreview";
 import FavoriteButton from "@/app/_components/favoriteButton/favoriteButton";
 
-const PostView = () => {
+const PostView = ({ params }: { params: Promise<{ post_id: string }> }) => {
+  const { post_id } = use(params); // Promiseを解決
+
+  console.log(post_id);
   // 仮置きデータ
   const post = testPostData;
 
   const [isMarkdownView, setIsMarkdownView] = useState(true);
 
   const created_date: Date = new Date(post.created_at);
-  const date: string =
+  const createdDateStr: string =
     created_date.getUTCFullYear() +
     "年" +
     (created_date.getUTCMonth() + 1) +
     "月" +
     created_date.getUTCDate() +
     "日";
-
+  const updated_date: Date = new Date(post.updated_at);
+  const updatedDateStr: string =
+    updated_date.getUTCFullYear() +
+    "年" +
+    (updated_date.getUTCMonth() + 1) +
+    "月" +
+    updated_date.getUTCDate() +
+    "日";
   return (
     <Box paddingInline="9%" paddingTop={"lg"}>
       <HStack marginInline={"xl"} mb={"md"}>
@@ -47,7 +66,8 @@ const PostView = () => {
               </Tag>
             ))}
           </Flex>
-          <Text>投稿日：{date}</Text>
+          <Text>投稿日：{createdDateStr}</Text>
+          <Text>更新日：{updatedDateStr}</Text>
         </VStack>
         <VStack gapY={"xl"} align={"end"} flex={"end"} pt={"xl"}>
           <FavoriteButton countFavorite={post.like_count} />
