@@ -4,8 +4,9 @@ import MarkdownPreview from "@/app/_components/markdown/MarkdownPreview";
 import CreateSlideInMd from "@/app/_components/mdToSlide/CreateSlideInMd";
 import MdSlideToggle from "@/app/_components/mdToSlide/MdSlideToggle";
 import SlidePreview from "@/app/_components/slide/SlidePreview";
+import { createTags, getAllTags } from "@/app/api/tag/tag";
 import { userSessionAtom } from "@/app/atoms/atom";
-import { DefaultPostArticle, PostArticle } from "@/types/post";
+import { ArticleRequest, Tag } from "@/types/post";
 import {
   Box,
   Button,
@@ -24,7 +25,7 @@ import {
 } from "@yamada-ui/react";
 import { useAtomValue } from "jotai";
 import { redirect } from "next/navigation";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 const NewPost = () => {
   const userSession = useAtomValue(userSessionAtom);
   // loginしていなかったらloginページに遷移
@@ -35,34 +36,86 @@ const NewPost = () => {
   const [marpValue, setMarpValue] = useState("");
   const [isMarkdownView, setIsMarkdownView] = useState(true);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [tagsName, setTagsName] = useState<string[]>([]);
+  const [tagsWord, setTagsWord] = useState<string[]>([]);
   const [title, setTitle] = useState("");
-  const [ArticleData, setArticleData] =
-    useState<PostArticle>(DefaultPostArticle);
-  const renderFlgRef = useRef(false);
-  const submitHandler = (isPublic: boolean) => {
-    setArticleData(() => {
-      return {
-        // TODO user_idを取得してくる
-        create_user_id: "apiでとってくる",
-        title: title,
-        main_MD: markdownValue,
-        slide_MD: marpValue,
-        public: isPublic,
-        // // TODO qiitaから取ってきたときにtrueにするから、後で消す
-        qiita_article: false,
-        tags: tagsName,
-      };
-    });
+  // const [ArticleData, setArticleData] =
+  //   useState<ArticleRequest>(DefaultPostArticle);
+  // const renderFlgRef = useRef(false);
+  const [allTags, setAllTags] = useState<Tag[]>([]);
+  const firstSet = async () => {
+    setAllTags(await getAllTags());
   };
   useEffect(() => {
-    if (renderFlgRef.current) {
-      console.log(ArticleData);
-    } else {
-      // 初回レンダリングスキップ
-      renderFlgRef.current = true;
+    firstSet();
+  }, []);
+  useEffect(() => {
+    console.log("allTags", allTags);
+  }, [allTags]);
+
+  // const [tags, setTags] = useState<Tag[]>([]);
+
+  // dbに登録されているtagに、新しい記事のtagがあるかを判別する
+  const unMatchingTagsWord = (allTags: Tag[], tagsName: string[]) => {
+    const matchName = tagsName.filter((name) => {
+      return (
+        undefined ==
+        allTags.find((aTag) => {
+          return name == aTag.word;
+        })
+      );
+    });
+    return matchName;
+  };
+  const matchingTagsWord = (allTags: Tag[], tagsWord: string[]) => {
+    return allTags.filter((tag) => {
+      return tagsWord.find((word) => {
+        return tag.word == word;
+      });
+    });
+  };
+  const submitHandler = async (isPublic: boolean) => {
+    // 作られてないタグ名
+    const unCreateTagsName = unMatchingTagsWord(allTags, tagsWord);
+    const createdTagsName = matchingTagsWord(allTags, tagsWord);
+    console.log("unCreateTagsName", unCreateTagsName);
+    let tags: Tag[] = createdTagsName;
+
+    if (unCreateTagsName.length !== 0) {
+      const unCrWords = unCreateTagsName.map((name) => {
+        return {
+          word: name,
+        };
+      });
+      const crTags = await createTags(unCrWords);
+      console.log("unCrWords,crTags", unCrWords, crTags);
+      if (crTags) {
+        tags = [...tags, ...crTags];
+      }
     }
-  }, [ArticleData]);
+    const ArticleData: ArticleRequest = {
+      // TODO user_idを取得してくる
+      title: title,
+      main_MD: markdownValue,
+      slide_MD: marpValue,
+      public: isPublic,
+      // // TODO qiitaから取ってきたときにtrueにするから、後で消す
+      qiita_article: false,
+      // dbに元からあって記事にあるタグと、dbに今登録したタグを合体
+      tags: tags,
+    };
+    console.log(ArticleData);
+  };
+
+  // useEffect(() => {
+  //   if (renderFlgRef.current && userSession.idToken) {
+  //     console.log(ArticleData);
+  //     // createArticle(userSession.idToken, ArticleData);
+  //   } else {
+  //     // 初回レンダリングスキップ
+  //     renderFlgRef.current = true;
+  //   }
+  // }, [ArticleData]);
+
   return (
     <Box p={"normal"}>
       <form>
@@ -88,10 +141,10 @@ const NewPost = () => {
                 bgColor={"neutral.50"}
                 placeholder="タグを入力してください。半角スペースで区切る"
                 onChange={(e) => {
-                  const names = e.target.value.split(" ").filter((elem) => {
+                  const words = e.target.value.split(" ").filter((elem) => {
                     return elem !== "";
                   }) as string[];
-                  setTagsName(names);
+                  setTagsWord(words);
                 }}
               />
             </Flex>

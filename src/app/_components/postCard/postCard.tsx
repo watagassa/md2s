@@ -8,7 +8,7 @@ import {
   Spacer,
   Box,
   Text,
-  Tag
+  Tag,
 } from "@yamada-ui/react";
 import { HeartIcon } from "@yamada-ui/lucide";
 import { type Article } from "@/types/post";
@@ -54,7 +54,7 @@ export function PostCard({ post }: CardProps) {
                 bgColor={"neutral.50"}
                 color={"black"}
               >
-                {tag.name}
+                {tag.word}
               </Tag>
             ))}
           </Flex>

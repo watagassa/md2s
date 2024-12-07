@@ -1,8 +1,7 @@
 export interface Tag {
   id: string;
-  name: string;
+  word: string;
 }
-
 export interface Article {
   id: string;
   create_user_id: string;
@@ -19,17 +18,15 @@ export interface Article {
   tags: Tag[];
 }
 
-export interface PostArticle {
-  create_user_id: string;
+export type ArticleRequest = {
   title: string;
   main_MD: string;
   slide_MD: string;
   public: boolean;
   qiita_article: boolean;
-  tags: string[];
-}
-export const DefaultPostArticle = {
-  create_user_id: "",
+  tags: Tag[];
+};
+export const DefaultPostArticle: ArticleRequest = {
   title: "",
   main_MD: "",
   slide_MD: "",
