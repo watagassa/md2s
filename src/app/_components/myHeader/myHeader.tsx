@@ -23,8 +23,13 @@ const Header = ({ session }: { session: Session | null }) => {
   const [userSession, setUserSession] = useAtom(userSessionAtom);
   useEffect(() => {
     if (session?.user) {
-      setUserSession(session.user);
+      setUserSession({
+        idToken: session.idToken,
+        name: session.user.name,
+        image: session.user.image,
+      });
     }
+    console.log(session?.idToken, session?.user?.name, session?.user?.image);
   }, [session]);
 
   return (

@@ -1,8 +1,8 @@
 import { atom } from "jotai";
 
 type SessionType = {
+  idToken?: string | null;
   name?: string | null | undefined;
-  email?: string | null | undefined;
   image?: string | null | undefined;
 };
 // ユーザー情報を保持するatom
