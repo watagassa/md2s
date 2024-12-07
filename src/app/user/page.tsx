@@ -13,17 +13,23 @@ import {
   HStack,
   SkeletonCircle,
   SkeletonText,
+  Center,
+  Button,
 } from "@yamada-ui/react";
 import { useSession } from "next-auth/react";
 import { getUser } from "../api/user/user";
 import { User } from "@/types/user";
+import { Article } from "@/types/post";
+import { getUserArticles } from "../api/article/article";
+import { redirect } from "next/navigation";
 
 const page = () => {
-  const posts = testPostData2; //取得したユーザーが投稿した記事データ
+  // const posts = testPostData2; //取得したユーザーが投稿した記事データ
   // const user = testUserData; //取得したユーザーデータ
 
-  const { data: session, status }= useSession();
-  const [user, setUser] = useState<User | null>(null);
+  const { data: session, status } = useSession();
+  const [user, setUser] = useState<User | null>(null); //取得したユーザーデータ
+  const [posts, setPosts] = useState<Article[] | null>(null); //取得したユーザーが投稿した記事データ
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -34,6 +40,19 @@ const page = () => {
     fetchUser();
   }, [session]);
 
+  useEffect(() => {
+    const fetchUser = async () => {
+      if(user?.id != null){
+        const userResult = await getUserArticles(user?.id);
+        setPosts(userResult); // User | null を直接セット
+      }else{
+        console.log("user.idが取得できませんでした。")
+        setPosts(null);
+      }
+    };
+
+    fetchUser();
+  }, [session]);
 
   return (
     <Box bgColor={"blackAlpha.50"} py={"md"}>
@@ -58,7 +77,7 @@ const page = () => {
               <SkeletonText />
               <HStack pt={"md"}>
                 {/* TODO:user名が伸びると下の二つの要素の間が離れていくの修正できたらいいね... */}
-                <SkeletonText/>
+                <SkeletonText />
                 <Spacer />
                 <SkeletonText />
               </HStack>
@@ -71,11 +90,22 @@ const page = () => {
           投稿した記事
         </Text>
       </Flex>
-      <VStack gap={"md"}>
-        {posts.map((post) => (
-          <PostCard key={post.id} post={post} />
-        ))}
-      </VStack>
+      {posts != null ? (
+        <VStack gap={"md"}>
+          {posts.map((post) => (
+            <PostCard key={post.id} post={post} />
+          ))}
+        </VStack>
+      ) : (
+        <Center>
+          <VStack gapY={"2xl"} margin={"xl"} >
+            <Text textAlign={"center"}>まだ投稿がありません。</Text>
+            <Button colorScheme="link" onClick={() => redirect("/posts/new")} h={"sm"} marginInline={"3xl"} fontSize={"8xl"}>
+              投稿する
+            </Button>
+          </VStack>
+        </Center>
+      )}
     </Box>
   );
 };

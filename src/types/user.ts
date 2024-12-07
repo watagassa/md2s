@@ -1,5 +1,7 @@
+import { UUID } from "crypto";
+
 export interface User {
-  id: string;
+  id: UUID;
   name: string;
   icon_url: string;
   google_id: string;
