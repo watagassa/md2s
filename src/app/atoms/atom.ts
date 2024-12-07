@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 
 type SessionType = {
-  idToken?: string | null;
+  idToken?: string;
   name?: string | null | undefined;
   image?: string | null | undefined;
 };
