@@ -24,35 +24,12 @@ export const getAllTags = async (): Promise<Tag[]> => {
   }
 };
 
-export const createTag = async (word: WordRequest): Promise<Tag | null> => {
-  try {
-    const res = await fetch(baseURL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ word }),
-    });
-
-    if (!res.ok) {
-      console.error(`Failed to create tag: ${res.status}`);
-      return null;
-    }
-
-    const data: Tag = await res.json();
-    console.log(data);
-    return data;
-  } catch (error) {
-    console.error("Error creating tag:", error);
-    return null;
-  }
-};
-
 export const createTags = async (
   words: WordRequest[]
 ): Promise<Tag[] | null> => {
   try {
     const res = await fetch(baseURL, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ words }),
     });
 
