@@ -7,7 +7,6 @@ export const getAllTags = async (): Promise<Tag[]> => {
   try {
     const res = await fetch(baseURL, {
       method: "GET",
-      headers: { "Content-Type": "application/json" },
     });
 
     if (!res.ok) {
@@ -28,13 +27,15 @@ export const createTags = async (
   words: WordRequest[]
 ): Promise<Tag[] | null> => {
   try {
+    console.log("try!!:", words);
+
     const res = await fetch(baseURL, {
       method: "POST",
-      body: JSON.stringify({ words }),
+      body: JSON.stringify(words),
     });
 
     if (!res.ok) {
-      console.error(`Failed to create tag: ${res.status}`);
+      console.error(`Failed to create tag: ${res}`);
       return null;
     }
 
@@ -54,7 +55,6 @@ export const updateTag = async (
   try {
     const res = await fetch(`${baseURL}/${id}`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ word }),
     });
 
