@@ -1,8 +1,6 @@
-"use client";
 import {
   Avatar,
   Card,
-  CardBody,
   CardFooter,
   CardHeader,
   Flex,
@@ -13,7 +11,7 @@ import {
 } from "@yamada-ui/react";
 import { HeartIcon } from "@yamada-ui/lucide";
 import { type Article } from "@/types/post";
-import { redirect } from "next/navigation";
+import PostTitle from "./postTitle";
 
 interface CardProps {
   post: Article;
@@ -45,16 +43,7 @@ export function PostCard({ post }: CardProps) {
           </Box>
         </CardHeader>
 
-        <CardBody
-          onClick={() => {
-            redirect(`posts/${post.id}`);
-          }}
-          fontSize="xl"
-          p={"sm"}
-          pl={"normal"}
-        >
-          {post.title}
-        </CardBody>
+        <PostTitle id={post.id} title={post.title} />
         <CardFooter>
           <Flex gap="md">
             {post.tags.map((tag) => (
