@@ -57,6 +57,11 @@ const page = () => {
   return (
     <Box bgColor={"blackAlpha.50"} py={"md"}>
       <Flex justify="center" m={"normal"}>
+<!--         <Flex
+          w="max(50%, sm)"
+          p={"normal"}
+          bgColor={"whiteAlpha.950"}
+        > -->
         {user != null ? (
           <Flex w="max(50%, sm)" p={"normal"} bgColor={"whiteAlpha.950"}>
             <Avatar size="xl" name={user.name} src={user.icon_url} />

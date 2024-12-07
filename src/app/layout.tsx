@@ -14,8 +14,8 @@ export const metadata: Metadata = {
   description:
     "MD2Sは、知識を文書とスライドで記録・共有するためのサービスです。Markdownで書いた文章を入力することでスライドが自動で生成されます。",
   icons: {
-    icon: '/favicon.ico',
-  }
+    icon: "/favicon.ico",
+  },
 };
 
 const mPlus = M_PLUS_1p({
@@ -31,6 +31,7 @@ export default async function RootLayout({
 }>) {
   const session = await getServerSession(nextAuthOptions);
 
+
   return (
     <html lang="ja">
       <body className={`${mPlus.className}`}>
@@ -38,7 +39,7 @@ export default async function RootLayout({
         {/* <YamadaUIScripts /> */}
         <UIProvider>
           <NextAuthProvider>
-            <Header session={session} />
+            <Header session={session}  />
             {children}
           </NextAuthProvider>
         </UIProvider>

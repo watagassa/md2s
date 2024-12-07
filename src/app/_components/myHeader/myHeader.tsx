@@ -13,14 +13,25 @@ import {
   Spacer,
   InputGroup,
   InputLeftElement,
+  ButtonGroup,
 } from "@yamada-ui/react";
 import { useAtom } from "jotai";
 import { userSessionAtom } from "@/app/atoms/atom";
 import { useEffect } from "react";
 import IconPopover from "./IconPopover";
 import { redirect } from "next/navigation";
+import { getQiitaCode, getQiitaToken } from "@/app/api/user/user";
 const Header = ({ session }: { session: Session | null }) => {
   const [userSession, setUserSession] = useAtom(userSessionAtom);
+
+  useEffect(() => {
+    const allQueryParameters = new URLSearchParams(window.location.search);
+    const code = allQueryParameters.get("code");
+    if (code) {
+      getQiitaToken(code, session);
+    }
+  }, [session]);
+
   useEffect(() => {
     if (session?.user) {
       setUserSession({
@@ -30,7 +41,7 @@ const Header = ({ session }: { session: Session | null }) => {
       });
     }
     console.log(session?.idToken, session?.user?.name, session?.user?.image);
-  }, [session]);
+  }, [session, setUserSession]);
 
   return (
     <Flex
@@ -53,11 +64,17 @@ const Header = ({ session }: { session: Session | null }) => {
             </InputGroup>
           </Card>
           <Spacer />
-          <Center>
+          <ButtonGroup gap="sm">
+            <Button
+              colorScheme="lime"
+              onClick={() => void getQiitaCode(session)}
+            >
+              qiita連携
+            </Button>
             <Button colorScheme="link" onClick={() => redirect("/posts/new")}>
               投稿する
             </Button>
-          </Center>
+          </ButtonGroup>
           <Center>
             <IconPopover />
           </Center>
