@@ -90,11 +90,11 @@ export const testPostData = {
   tags: [
     {
       id: "1",
-      name: "tag1",
+      word: "tag1",
     },
     {
       id: "2",
-      name: "tag2",
+      word: "tag2",
     },
   ],
 };
@@ -116,11 +116,11 @@ export const testPostData2 = [
     tags: [
       {
         id: "1",
-        name: "tag1",
+        word: "tag1",
       },
       {
         id: "2",
-        name: "tag2",
+        word: "tag2",
       },
     ],
   },
@@ -140,11 +140,11 @@ export const testPostData2 = [
     tags: [
       {
         id: "1",
-        name: "tag1",
+        word: "tag1",
       },
       {
         id: "2",
-        name: "tag2",
+        word: "tag2",
       },
     ],
   },
@@ -164,11 +164,11 @@ export const testPostData2 = [
     tags: [
       {
         id: "1",
-        name: "tag1",
+        word: "tag1",
       },
       {
         id: "2",
-        name: "tag2",
+        word: "tag2",
       },
     ],
   },

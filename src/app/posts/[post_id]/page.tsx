@@ -1,5 +1,5 @@
 "use client";
-import React, { use, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import MdSlideToggle from "@/app/_components/mdToSlide/MdSlideToggle";
 import {
   Box,
@@ -12,16 +12,23 @@ import {
   HStack,
 } from "@yamada-ui/react";
 import MarkdownPreview from "@/app/_components/markdown/MarkdownPreview";
-import { testPostData } from "@/app/_testData";
 import SlidePreview from "@/app/_components/slide/SlidePreview";
 import FavoriteButton from "@/app/_components/favoriteButton/favoriteButton";
+import { Article, DefaultArticle } from "@/types/post";
+import { testPostData } from "@/app/_testData";
 
 const PostView = ({ params }: { params: Promise<{ post_id: string }> }) => {
   const { post_id } = use(params); // Promiseを解決
-
+  const [post, setPost] = useState<Article>(DefaultArticle);
+  const fetchPost = async () => {};
+  useEffect(() => {
+    fetchPost();
+    setPost(testPostData);
+  }, []);
   console.log(post_id);
+
   // 仮置きデータ
-  const post = testPostData;
+  // const post = testPostData;
 
   const [isMarkdownView, setIsMarkdownView] = useState(true);
 
@@ -62,7 +69,7 @@ const PostView = ({ params }: { params: Promise<{ post_id: string }> }) => {
                 bgColor={"neutral.50"}
                 color={"black"}
               >
-                {tag.name}
+                {tag.word}
               </Tag>
             ))}
           </Flex>
