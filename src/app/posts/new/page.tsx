@@ -14,6 +14,7 @@ import {
   Card,
   Center,
   Flex,
+  HStack,
   Input,
   Modal,
   ModalBody,
@@ -22,6 +23,7 @@ import {
   ScrollArea,
   Spacer,
   useDisclosure,
+  VStack,
   Wrap,
 } from "@yamada-ui/react";
 import { useAtomValue } from "jotai";
@@ -105,7 +107,7 @@ const NewPost = () => {
         }}
       >
         {/* タイトルとタグ */}
-        <Flex>
+        <HStack>
           <Box marginBottom={"sm"} w={"50%"}>
             <Flex pb={"sm"}>
               <Input
@@ -135,15 +137,17 @@ const NewPost = () => {
             </Flex>
           </Box>
           {/* qiitaの記事インポート */}
+          <Spacer />
           <Box>
-            <Flex>
-              <Spacer></Spacer>
+            <VStack>
               <Button
                 colorScheme={"success"}
                 onClick={() => {
                   onOpen();
                 }}
-                m={"sm"}
+                mb={"sm"}
+                w={"200px"}
+                ml={"30px"}
               >
                 qiitaの記事をimport
               </Button>
@@ -169,9 +173,9 @@ const NewPost = () => {
                   <Button colorScheme="primary">importする!!</Button>
                 </ModalFooter>
               </Modal>
-            </Flex>
+            </VStack>
             {/* markdownからslideにする */}
-            <Wrap gap={"md"} marginInline={"normal"}>
+            <Wrap gap={"md"} marginInline={"normal"} pb={"sm"}>
               <CreateSlideInMd />
               <MdSlideToggle
                 isMarkdownView={isMarkdownView}
@@ -179,7 +183,7 @@ const NewPost = () => {
               />
             </Wrap>
           </Box>
-        </Flex>
+        </HStack>
         {isMarkdownView ? (
           <Flex>
             <MarkdownEditor
@@ -217,11 +221,10 @@ const NewPost = () => {
         )}
         {/* 下書き保存,投稿ボタン */}
         <Center
-          h={"15"}
+          h={"80px"}
           w={"50%"}
           position={"fixed"}
           borderBlock={"black"}
-          boxShadow="0px 0px 1px black"
           right={"0"}
           bottom={"0"}
           bgColor={"white"}
