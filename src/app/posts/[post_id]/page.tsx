@@ -23,9 +23,6 @@ const PostView = ({ params }: { params: Promise<{ post_id: number }> }) => {
   const fetchPost = async () => {
     const fetchPost = await getParticularArticle(post_id);
     if (fetchPost) {
-      console.log(fetchPost);
-      // const decodeMainMd = base64Decode(fetchPost.main_MD);
-      // const decodeSlideMd = base64Decode(fetchPost.slide_MD);
       setPost(() => {
         return { ...fetchPost };
       });
@@ -57,9 +54,9 @@ const PostView = ({ params }: { params: Promise<{ post_id: number }> }) => {
       <HStack marginInline={"xl"} mb={"md"}>
         <VStack m={"xs"} gapY={"md"}>
           <Flex>
-            <Avatar size="sm" name={post.user_name} src={post.user_icon} />
+            <Avatar size="sm" name={post.name} src={post.icon_url} />
             <Center fontSize={"lg"} paddingInline={"sm"}>
-              {post.user_name}
+              {post.name}
             </Center>
           </Flex>
           <Text fontSize="4xl" fontWeight={"bold"}>
@@ -77,8 +74,10 @@ const PostView = ({ params }: { params: Promise<{ post_id: number }> }) => {
               </Tag>
             ))}
           </Flex>
-          <Text>投稿日：{createdDateStr}</Text>
-          <Text>更新日：{updatedDateStr}</Text>
+          <HStack>
+            <Text>投稿日：{createdDateStr}</Text>
+            <Text>更新日：{updatedDateStr}</Text>
+          </HStack>
         </VStack>
         <VStack gapY={"xl"} align={"end"} flex={"end"} pt={"xl"}>
           <FavoriteButton countFavorite={post.like_count} />

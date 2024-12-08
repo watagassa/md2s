@@ -1,5 +1,5 @@
 "use client";
-import { CardBody } from "@yamada-ui/react";
+import { CardBody, useHover, Text } from "@yamada-ui/react";
 import { redirect } from "next/navigation";
 import React from "react";
 
@@ -7,7 +7,10 @@ interface PostTitleProps {
   id: number;
   title: string;
 }
+
 const PostTitle = ({ id, title }: PostTitleProps) => {
+  const { hovered, ref } = useHover();
+
   return (
     <CardBody
       onClick={() => {
@@ -16,8 +19,24 @@ const PostTitle = ({ id, title }: PostTitleProps) => {
       fontSize="xl"
       p={"sm"}
       pl={"normal"}
+      ref={ref}
     >
-      {title}
+      {hovered ? (
+        <Text
+          cursor={"pointer"}
+          borderBottom={"1.5px solid #898989"}
+          fontSize={"2xl"}
+          fontWeight={"bold"}
+          m={"xs"}
+        >
+          {title}
+        </Text>
+      ) : (
+        <Text mb={"xs + 1.5px"} m={"xs"} fontSize={"2xl"} fontWeight={"bold"}>
+          {" "}
+          {title}
+        </Text>
+      )}
     </CardBody>
   );
 };

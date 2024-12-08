@@ -76,8 +76,8 @@ const testMarp = `
 export const testPostData = {
   id: 1,
   create_user_id: "387a4e2d-5b8d-4d-9035-ee95680b66b4",
-  user_name: "usr_name",
-  user_icon:
+  name: "usr_name",
+  icon_url:
     "https://lh3.googleusercontent.com/a/ACg8ocKbLTbImuR5zomWyqMHS79Yk2T7-ypmnS1-hjF6MZX8Wtn1C6M=s96-c",
   title: "猫の可愛さについて",
   main_MD: testMd,

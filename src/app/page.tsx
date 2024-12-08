@@ -8,7 +8,7 @@ export default async function Home() {
   return (
     <Box bgColor={"blackAlpha.50"} py={"xl"}>
       <Flex justify="center">
-        <Text w="max(80%, sm)" p={"md"}>
+        <Text w="max(67%, sm)" p={"md"} fontSize={"xl"} fontWeight="bold">
           おすすめ
         </Text>
       </Flex>

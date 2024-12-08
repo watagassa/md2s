@@ -31,14 +31,14 @@ export function PostCard({ post }: CardProps) {
     <Flex justify="center">
       <Card
         bgColor={"whiteAlpha.950"}
-        w="max(80%, sm)"
+        w="max(70%, sm)"
         rounded="4"
         paddingInline={"md"}
       >
         <CardHeader>
-          <Avatar size="sm" name={post.user_name} src={post.user_icon} />
+          <Avatar size="sm" name={post.name} src={post.icon_url} />
           <Box>
-            <Text>{post.user_name}</Text>
+            <Text>{post.name}</Text>
             <Text>{date}</Text>
           </Box>
         </CardHeader>
