@@ -7,10 +7,12 @@ import {
   Box,
   Center,
   Flex,
+  HStack,
   SkeletonCircle,
   SkeletonText,
   Text,
   VStack,
+  Loading,
 } from "@yamada-ui/react";
 import { useAtom } from "jotai";
 import { useSession } from "next-auth/react";
@@ -33,7 +35,7 @@ const Page = () => {
   if (status === "loading") {
     return (
       <Center height="100vh">
-        <Text>Loading...</Text>
+        <Loading variant="oval" fontSize="8xl" color="indigo.700" />
       </Center>
     );
   }
@@ -44,66 +46,58 @@ const Page = () => {
   }
 
   return (
-    <Box bgColor={"gray.50"} py={8}>
-      <Flex justify="center" mb={6}>
+    <Box bgColor={"blackAlpha.50"} py={"md"}>
+      <Flex justify="center" m={"normal"}>
         {user ? (
-          <Flex
-            direction={{ base: "column", sm: "row" }}
-            w="90%"
-            maxW="600px"
-            p={6}
-            bgColor={"white"}
+          <HStack
+            w="max(50%, sm)"
+            p={"lg"}
+            bgColor={"whiteAlpha.950"}
             borderRadius={"lg"}
             boxShadow="md"
           >
             <Avatar size="xl" name={user.name} src={user.icon_url} />
-            <Box ml={{ sm: 6 }} mt={{ base: 4, sm: 0 }}>
-              <Text fontSize={"2xl"} fontWeight="bold">
+            <VStack ml={"md"}>
+              <Text fontSize={"3xl"} fontWeight="bold">
                 {user.name}
               </Text>
-              <Flex justify="space-between" mt={4} gap={4}>
-                <Text>投稿数: {user.total_posts_articles}</Text>
-                <Text>いいね数: {user.total_get_likes}</Text>
-              </Flex>
-            </Box>
-          </Flex>
+              <HStack mt={"md"} gap={"2xl"}>
+                <Text fontSize={"lg"}>投稿数: {user.total_posts_articles}</Text>
+                <Text fontSize={"lg"}>
+                  獲得いいね数: {user.total_get_likes}
+                </Text>
+              </HStack>
+            </VStack>
+          </HStack>
         ) : (
-          <Flex
-            direction={{ base: "column", sm: "row" }}
-            w="90%"
-            maxW="600px"
-            p={6}
-            bgColor={"white"}
+          <HStack
+            w="max(50%, sm)"
+            p={"xl"}
+            bgColor={"whiteAlpha.950"}
             borderRadius={"lg"}
             boxShadow="md"
           >
-            <SkeletonCircle size="xl" />
-            <Box ml={{ sm: 6 }} mt={{ base: 4, sm: 0 }} flex="1">
+            <SkeletonCircle size="4xl" />
+            <VStack ml={"md"}>
               <SkeletonText w="60%" />
               <SkeletonText mt={4} />
-            </Box>
-          </Flex>
+            </VStack>
+          </HStack>
         )}
       </Flex>
-
-      <Flex justify="center" mb={4}>
-        <Text fontSize={"lg"} fontWeight="bold">
+      <Flex justify="center" paddingTop={"sm"}>
+        <Text w="max(70%, sm)" p={"md"} fontSize={"xl"} fontWeight="bold">
           投稿した記事
         </Text>
       </Flex>
-
       {posts ? (
-        <VStack rounded="6">
+        <VStack gap={"md"}>
           {posts.map((post) => (
             <PostCard key={post.id} post={post} />
           ))}
         </VStack>
       ) : (
-        <Center>
-          <VStack gapY={"2xl"} margin={"xl"}>
-            <Text textAlign={"center"}>まだ投稿がありません。</Text>
-          </VStack>
-        </Center>
+        <Center></Center>
       )}
     </Box>
   );

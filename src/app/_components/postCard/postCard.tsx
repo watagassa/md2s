@@ -31,7 +31,7 @@ export function PostCard({ post }: CardProps) {
     <Flex justify="center">
       <Card
         bgColor={"whiteAlpha.950"}
-        w="max(80%, sm)"
+        w="max(70%, sm)"
         rounded="4"
         paddingInline={"md"}
       >
