@@ -17,7 +17,6 @@ export const createImageURL = async (image: string): Promise<string | null> => {
     }
 
     const data: string = await res.json();
-    console.log(data);
     return data;
   } catch (error) {
     console.error("Error creating tag:", error);

@@ -54,7 +54,6 @@ const Header = ({ session }: { session: Session | null }) => {
     }
   }, [session, setUser, setUserSession]);
 
-  console.log("user", user?.qiita_link);
   return (
     <Flex
       bgColor="whiteAlpha.950"

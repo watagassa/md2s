@@ -25,7 +25,6 @@ export const getQiitaArticles = async (
     }
 
     const data: Article[] = await res.json();
-    console.log(data);
     return data;
   } catch (error) {
     console.error("Error got articles:", error);

@@ -15,7 +15,6 @@ export const getAllTags = async (): Promise<Tag[]> => {
     }
 
     const data: Tag[] = await res.json();
-    console.log(data);
     return data;
   } catch (error) {
     console.error("Error fetching tags:", error);
@@ -27,8 +26,6 @@ export const createTags = async (
   words: WordRequest[]
 ): Promise<Tag[] | null> => {
   try {
-    console.log("try!!:", words);
-
     const res = await fetch(baseURL, {
       method: "POST",
       body: JSON.stringify(words),
@@ -40,7 +37,6 @@ export const createTags = async (
     }
 
     const data: Tag[] = await res.json();
-    console.log(data);
     return data;
   } catch (error) {
     console.error("Error creating tag:", error);
@@ -64,7 +60,6 @@ export const updateTag = async (
     }
 
     const data: Tag = await res.json();
-    console.log(data);
     return data;
   } catch (error) {
     console.error("Error updating tag:", error);

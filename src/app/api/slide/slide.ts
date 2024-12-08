@@ -5,7 +5,6 @@ export const exchangeMd2s = async (
   md: string
 ): Promise<string> => {
   try {
-    console.log("title md", title, md);
     const res = await fetch(baseURL, {
       method: "POST",
       body: JSON.stringify({
@@ -18,7 +17,6 @@ export const exchangeMd2s = async (
       console.error(`Failed to fetch tags: ${res.status}`);
     }
     const data: { slide: string } = await res.json();
-    console.log("data", data);
     return data.slide;
   } catch (error) {
     console.error("Error fetching tags:", error);

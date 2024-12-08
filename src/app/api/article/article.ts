@@ -23,7 +23,6 @@ export const createArticle = async (
     }
 
     const data: Article = await res.json();
-    console.log(data);
     return data;
   } catch (error) {
     console.error("Error creating article:", error);
@@ -54,7 +53,6 @@ export const getArticles = async (
     }
 
     const data: Article[] = await res.json();
-    console.log(data);
     return data;
   } catch (error) {
     console.error("Error got articles:", error);
@@ -80,7 +78,6 @@ export const getUserArticles = async (
     }
 
     const data: Article[] = await res.json();
-    console.log("ユーザの記事データ:", data);
     return data;
   } catch (error) {
     console.log("Error got articles", error);
@@ -104,7 +101,6 @@ export const getParticularArticle = async (
     }
 
     const data: Article = await res.json();
-    console.log("取得した記事データ:", data);
     return data;
   } catch (error) {
     console.error("Error got articles:", error);
@@ -127,7 +123,6 @@ export const searchArticles = async (keyword: string): Promise<Article[]> => {
     }
 
     const data: Article[] = await res.json();
-    console.log("検索した記事データ:", data);
     return data;
   } catch (error) {
     console.error("Error got articles:", error);
