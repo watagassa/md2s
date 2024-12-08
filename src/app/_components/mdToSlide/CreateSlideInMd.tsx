@@ -28,6 +28,10 @@ const CreateSlideInMd = () => {
           <NativeSelect placeholder="default">
             <NativeOption value="gaia">gaia</NativeOption>
             <NativeOption value="uncover">uncover</NativeOption>
+            <NativeOption value="academic">academic</NativeOption>
+            <NativeOption value="gradient">gradient</NativeOption>
+            <NativeOption value="border">border</NativeOption>
+            <NativeOption value="beam">beam</NativeOption>
           </NativeSelect>
         </Button>
       </Center>
