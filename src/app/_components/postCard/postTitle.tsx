@@ -32,7 +32,13 @@ const PostTitle = ({ id, title }: PostTitleProps) => {
           {title}
         </Text>
       ) : (
-        <Text mb={"xs + 1.5px"} m={"xs"} fontSize={"2xl"} fontWeight={"bold"}>
+        <Text
+          mb="calc($spaces.1.5)"
+          mt={"xs"}
+          marginInline={"xs"}
+          fontSize={"2xl"}
+          fontWeight={"bold"}
+        >
           {" "}
           {title}
         </Text>

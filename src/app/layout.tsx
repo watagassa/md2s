@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   description:
     "MD2Sは、知識を文書とスライドで記録・共有するためのサービスです。Markdownで書いた文章を入力することでスライドが自動で生成されます。",
   icons: {
-    icon: "/favicon.ico",
+    icon: "/icon.ico",
   },
 };
 
