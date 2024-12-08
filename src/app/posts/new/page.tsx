@@ -66,7 +66,6 @@ const NewPost = () => {
     // 作られてないタグ名
     const unCreateTagsName = unMatchingTagsWord(allTags, tagsWord);
     const createdTagsName = matchingTagsWord(allTags, tagsWord);
-    console.log("unCreateTagsName", unCreateTagsName);
     let tags: Tag[] = createdTagsName;
 
     if (unCreateTagsName.length !== 0) {
@@ -76,7 +75,6 @@ const NewPost = () => {
         };
       });
       const crTags = await createTags(unCrWords);
-      console.log("unCrWords,crTags", unCrWords, crTags);
       if (crTags) {
         tags = [...tags, ...crTags];
       }

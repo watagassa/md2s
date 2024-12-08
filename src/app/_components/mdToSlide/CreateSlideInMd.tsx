@@ -1,5 +1,4 @@
 "use client";
-import { base64Encode } from "@/app/_utils/markdown_editor/ImageFnc/base64Ex";
 import { exchangeMd2s } from "@/app/api/slide/slide";
 import {
   Button,
@@ -7,7 +6,6 @@ import {
   Flex,
   Icon,
   NativeOption,
-  NativeOptionGroup,
   NativeSelect,
 } from "@yamada-ui/react";
 import React from "react";

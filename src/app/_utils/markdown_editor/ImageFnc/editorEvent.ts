@@ -42,7 +42,6 @@ export const easyMDEHandleDrop = async (
   ) {
     // TODO ここにapiいれる
     const uploadedImageUrl = await uploadImage(file);
-    // console.log(file, fileToBase64(file));
     simpleMde.codemirror.replaceSelection("![](" + uploadedImageUrl + ")");
   }
 };
