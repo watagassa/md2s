@@ -21,10 +21,6 @@ const PostView = ({ params }: { params: Promise<{ post_id: string }> }) => {
   const { post_id } = use(params); // Promiseを解決
   const [post, setPost] = useState<Article>(DefaultArticle);
   const fetchPost = async () => {};
-  useEffect(() => {
-    fetchPost();
-    setPost(testPostData);
-  }, []);
   console.log(post_id);
 
   // 仮置きデータ
@@ -53,9 +49,9 @@ const PostView = ({ params }: { params: Promise<{ post_id: string }> }) => {
       <HStack marginInline={"xl"} mb={"md"}>
         <VStack m={"xs"} gapY={"md"}>
           <Flex>
-            <Avatar size="sm" name={post.user_name} src={post.user_icon} />
+            <Avatar size="sm" name={post.name} src={post.icon_url} />
             <Center fontSize={"lg"} paddingInline={"sm"}>
-              {post.user_name}
+              {post.name}
             </Center>
           </Flex>
           <Text fontSize="4xl" fontWeight={"bold"}>
@@ -73,8 +69,10 @@ const PostView = ({ params }: { params: Promise<{ post_id: string }> }) => {
               </Tag>
             ))}
           </Flex>
-          <Text>投稿日：{createdDateStr}</Text>
-          <Text>更新日：{updatedDateStr}</Text>
+          <HStack>
+            <Text>投稿日：{createdDateStr}</Text>
+            <Text>更新日：{updatedDateStr}</Text>
+          </HStack>
         </VStack>
         <VStack gapY={"xl"} align={"end"} flex={"end"} pt={"xl"}>
           <FavoriteButton countFavorite={post.like_count} />

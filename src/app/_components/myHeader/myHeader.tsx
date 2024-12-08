@@ -17,13 +17,15 @@ import {
 } from "@yamada-ui/react";
 import { useAtom } from "jotai";
 import { userAtom, userSessionAtom } from "@/app/atoms/atom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import IconPopover from "./IconPopover";
 import { redirect } from "next/navigation";
 import { getQiitaCode, getQiitaToken, getUser } from "@/app/api/user/user";
+
 const Header = ({ session }: { session: Session | null }) => {
   const [userSession, setUserSession] = useAtom(userSessionAtom);
   const [user, setUser] = useAtom(userAtom);
+  const [inputKeyword, setInputKeyword] = useState("");
 
   useEffect(() => {
     const allQueryParameters = new URLSearchParams(window.location.search);
@@ -68,7 +70,18 @@ const Header = ({ session }: { session: Session | null }) => {
               <InputLeftElement>
                 <Icon as={PiMagnifyingGlassBold}></Icon>
               </InputLeftElement>
-              <Input type="text" placeholder="記事検索" w={"md"}></Input>
+              <Input
+                type="search"
+                placeholder="search"
+                w={"md"}
+                value={inputKeyword}
+                onChange={(e) => setInputKeyword(e.target.value)} // 入力値を更新
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    redirect(`/search/${inputKeyword}`);
+                  }
+                }}
+              />
             </InputGroup>
           </Card>
           <Spacer />
@@ -103,7 +116,18 @@ const Header = ({ session }: { session: Session | null }) => {
               <InputLeftElement>
                 <Icon as={PiMagnifyingGlassBold}></Icon>
               </InputLeftElement>
-              <Input type="text" placeholder="記事検索" w={"md"}></Input>
+              <Input
+                type="search"
+                placeholder="search"
+                w={"md"}
+                value={inputKeyword}
+                onChange={(e) => setInputKeyword(e.target.value)} // 入力値を更新
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    redirect(`/search/${inputKeyword}`);
+                  }
+                }}
+              />
             </InputGroup>
           </Card>
           <Spacer />
