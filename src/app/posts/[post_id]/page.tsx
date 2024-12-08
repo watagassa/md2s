@@ -11,25 +11,26 @@ import {
   VStack,
   HStack,
 } from "@yamada-ui/react";
-import MarkdownPreview from "@/app/_components/markdown/MarkdownPreview";
 import SlidePreview from "@/app/_components/slide/SlidePreview";
 import FavoriteButton from "@/app/_components/favoriteButton/favoriteButton";
 import { Article, DefaultArticle } from "@/types/post";
-import { testPostData } from "@/app/_testData";
+import { getParticularArticle } from "@/app/api/article/article";
+import { Markdown } from "@yamada-ui/markdown";
 
-const PostView = ({ params }: { params: Promise<{ post_id: string }> }) => {
+const PostView = ({ params }: { params: Promise<{ post_id: number }> }) => {
   const { post_id } = use(params); // Promiseを解決
   const [post, setPost] = useState<Article>(DefaultArticle);
-  const fetchPost = async () => {};
+  const fetchPost = async () => {
+    const fetchPost = await getParticularArticle(post_id);
+    if (fetchPost) {
+      setPost(() => {
+        return { ...fetchPost };
+      });
+    }
+  };
   useEffect(() => {
     fetchPost();
-    setPost(testPostData);
   }, []);
-  console.log(post_id);
-
-  // 仮置きデータ
-  // const post = testPostData;
-
   const [isMarkdownView, setIsMarkdownView] = useState(true);
 
   const created_date: Date = new Date(post.created_at);
@@ -53,9 +54,9 @@ const PostView = ({ params }: { params: Promise<{ post_id: string }> }) => {
       <HStack marginInline={"xl"} mb={"md"}>
         <VStack m={"xs"} gapY={"md"}>
           <Flex>
-            <Avatar size="sm" name={post.user_name} src={post.user_icon} />
+            <Avatar size="sm" name={post.name} src={post.icon_url} />
             <Center fontSize={"lg"} paddingInline={"sm"}>
-              {post.user_name}
+              {post.name}
             </Center>
           </Flex>
           <Text fontSize="4xl" fontWeight={"bold"}>
@@ -73,8 +74,10 @@ const PostView = ({ params }: { params: Promise<{ post_id: string }> }) => {
               </Tag>
             ))}
           </Flex>
-          <Text>投稿日：{createdDateStr}</Text>
-          <Text>更新日：{updatedDateStr}</Text>
+          <HStack>
+            <Text>投稿日：{createdDateStr}</Text>
+            <Text>更新日：{updatedDateStr}</Text>
+          </HStack>
         </VStack>
         <VStack gapY={"xl"} align={"end"} flex={"end"} pt={"xl"}>
           <FavoriteButton countFavorite={post.like_count} />
@@ -88,7 +91,7 @@ const PostView = ({ params }: { params: Promise<{ post_id: string }> }) => {
       </HStack>
       {isMarkdownView ? (
         <Box p={"xl"} bgColor={"whiteAlpha.950"} rounded={"lg"}>
-          <MarkdownPreview md={post.main_MD} />
+          <Markdown>{post.main_MD}</Markdown>
         </Box>
       ) : (
         <SlidePreview slide={post.slide_MD} />

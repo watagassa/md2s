@@ -6,8 +6,8 @@ export interface Tag {
 export interface Article {
   id: number;
   create_user_id: string;
-  user_name: string;
-  user_icon: string;
+  name: string;
+  icon_url: string;
   title: string;
   main_MD: string;
   slide_MD: string;
@@ -22,8 +22,8 @@ export interface Article {
 export const DefaultArticle: Article = {
   id: 0,
   create_user_id: "",
-  user_name: "",
-  user_icon: "",
+  name: "",
+  icon_url: "",
   title: "",
   main_MD: "",
   slide_MD: "",

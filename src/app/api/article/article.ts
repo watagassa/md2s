@@ -71,7 +71,7 @@ export const getUserArticles = async (
 
   try {
     const res = await fetch(getAPI, {
-      method: "POST",
+      method: "GET",
     });
 
     if (!res.ok) {
