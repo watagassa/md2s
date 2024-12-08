@@ -196,6 +196,7 @@ const NewPost = () => {
                 border={"1px solid #CED4DA"}
                 boxShadow={"0"}
                 minH={"full"}
+                padding={"lg"}
               >
                 <MarkdownPreview md={markdownValue}></MarkdownPreview>
                 {/* <Markdown p={"md"}>{markdownValue}</Markdown> */}
@@ -230,7 +231,7 @@ const NewPost = () => {
           bgColor={"white"}
         >
           <Spacer />
-          <Flex gapX={"md"} p="lg">
+          <Flex gapX={"md"} p="xl">
             <Button
               type="submit"
               onSubmit={() => {
