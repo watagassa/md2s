@@ -14,7 +14,7 @@ const PostTitle = ({ id, title }: PostTitleProps) => {
   return (
     <CardBody
       onClick={() => {
-        redirect(`posts/${id}`);
+        redirect(`/posts/${id}`);
       }}
       fontSize="xl"
       p={"sm"}
