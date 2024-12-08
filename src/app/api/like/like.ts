@@ -21,8 +21,6 @@ export const registLike = async (
         console.error(`Failed to regist like: ${res.status}`);
         return null;
       }
-
-      const data: string = await res.json();
     } else {
       console.log("idTokenが取得できませんでした。");
       return null;
