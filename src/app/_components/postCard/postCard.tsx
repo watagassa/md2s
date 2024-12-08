@@ -26,7 +26,6 @@ export function PostCard({ post }: CardProps) {
     "月" +
     created_date.getUTCDate() +
     "日";
-  console.log(post);
   return (
     <Flex justify="center">
       <Card
@@ -43,7 +42,12 @@ export function PostCard({ post }: CardProps) {
           </Box>
         </CardHeader>
 
-        <PostTitle id={post.id} title={post.title} />
+        <PostTitle
+          id={post.id}
+          title={post.title}
+          qiita_article={post.qiita_article}
+          post={post}
+        />
         <CardFooter>
           <Flex gap="md">
             {post.tags.map((tag) => (

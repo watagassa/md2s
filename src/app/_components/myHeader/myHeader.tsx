@@ -92,7 +92,6 @@ const Header = ({ session }: { session: Session | null }) => {
               <Button
                 colorScheme="lime"
                 onClick={() => {
-                  getQiitaArticles(session);
                   redirect("/qiita");
                 }}
               >
