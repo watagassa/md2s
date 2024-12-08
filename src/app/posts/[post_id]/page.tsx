@@ -11,25 +11,29 @@ import {
   VStack,
   HStack,
 } from "@yamada-ui/react";
-import MarkdownPreview from "@/app/_components/markdown/MarkdownPreview";
 import SlidePreview from "@/app/_components/slide/SlidePreview";
 import FavoriteButton from "@/app/_components/favoriteButton/favoriteButton";
 import { Article, DefaultArticle } from "@/types/post";
-import { testPostData } from "@/app/_testData";
+import { getParticularArticle } from "@/app/api/article/article";
+import { Markdown } from "@yamada-ui/markdown";
 
-const PostView = ({ params }: { params: Promise<{ post_id: string }> }) => {
+const PostView = ({ params }: { params: Promise<{ post_id: number }> }) => {
   const { post_id } = use(params); // Promiseを解決
   const [post, setPost] = useState<Article>(DefaultArticle);
-  const fetchPost = async () => {};
+  const fetchPost = async () => {
+    const fetchPost = await getParticularArticle(post_id);
+    if (fetchPost) {
+      console.log(fetchPost);
+      // const decodeMainMd = base64Decode(fetchPost.main_MD);
+      // const decodeSlideMd = base64Decode(fetchPost.slide_MD);
+      setPost(() => {
+        return { ...fetchPost };
+      });
+    }
+  };
   useEffect(() => {
     fetchPost();
-    setPost(testPostData);
   }, []);
-  console.log(post_id);
-
-  // 仮置きデータ
-  // const post = testPostData;
-
   const [isMarkdownView, setIsMarkdownView] = useState(true);
 
   const created_date: Date = new Date(post.created_at);
@@ -88,7 +92,7 @@ const PostView = ({ params }: { params: Promise<{ post_id: string }> }) => {
       </HStack>
       {isMarkdownView ? (
         <Box p={"xl"} bgColor={"whiteAlpha.950"} rounded={"lg"}>
-          <MarkdownPreview md={post.main_MD} />
+          <Markdown>{post.main_MD}</Markdown>
         </Box>
       ) : (
         <SlidePreview slide={post.slide_MD} />
