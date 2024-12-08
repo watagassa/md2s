@@ -51,8 +51,6 @@ export const deleteLike = async (
         console.error(`Failed to create article: ${res.status}`);
         return null;
       }
-
-      const data: string = await res.json();
     } else {
       console.log("idTokenが取得できませんでした。");
       return null;
