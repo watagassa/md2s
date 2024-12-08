@@ -21,6 +21,7 @@ import { useEffect, useState } from "react";
 import IconPopover from "./IconPopover";
 import { redirect } from "next/navigation";
 import { getQiitaCode, getQiitaToken, getUser } from "@/app/api/user/user";
+import { getQiitaArticles } from "@/app/api/qiita/qitta";
 
 const Header = ({ session }: { session: Session | null }) => {
   const [userSession, setUserSession] = useAtom(userSessionAtom);
@@ -53,6 +54,7 @@ const Header = ({ session }: { session: Session | null }) => {
     }
   }, [session, setUser, setUserSession]);
 
+  console.log("user", user?.qiita_link);
   return (
     <Flex
       bgColor="whiteAlpha.950"
@@ -89,13 +91,19 @@ const Header = ({ session }: { session: Session | null }) => {
             {user?.qiita_link ? (
               <Button
                 colorScheme="lime"
+                onClick={() => {
+                  getQiitaArticles(session);
+                  redirect("/qiita");
+                }}
+              >
+                qiita記事取得
+              </Button>
+            ) : (
+              <Button
+                colorScheme="lime"
                 onClick={() => void getQiitaCode(session)}
               >
                 qiita連携
-              </Button>
-            ) : (
-              <Button colorScheme="lime" onClick={() => redirect("/qiita")}>
-                qiita記事取得
               </Button>
             )}
 
