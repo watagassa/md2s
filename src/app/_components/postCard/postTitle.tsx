@@ -6,6 +6,7 @@ import React from "react";
 interface PostTitleProps {
   id: number;
   title: string;
+  
 }
 
 const PostTitle = ({ id, title }: PostTitleProps) => {

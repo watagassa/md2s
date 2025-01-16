@@ -21,7 +21,6 @@ import { useEffect, useState } from "react";
 import IconPopover from "./IconPopover";
 import { redirect } from "next/navigation";
 import { getQiitaCode, getQiitaToken, getUser } from "@/app/api/user/user";
-import { getQiitaArticles } from "@/app/api/qiita/qitta";
 
 const Header = ({ session }: { session: Session | null }) => {
   const [userSession, setUserSession] = useAtom(userSessionAtom);
@@ -91,7 +90,6 @@ const Header = ({ session }: { session: Session | null }) => {
               <Button
                 colorScheme="lime"
                 onClick={() => {
-                  getQiitaArticles(session);
                   redirect("/qiita");
                 }}
               >
