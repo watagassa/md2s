@@ -19,6 +19,28 @@ export interface Article {
   tags: Tag[];
 }
 
+export type QittaList = {
+  id: string;
+  title: string;
+  body: string;
+  created_at: string;
+  updated_at: string;
+  url: string;
+  tags: string[];
+  private: boolean;
+  likes_count: number;
+
+  // Id          string   json:"id"
+  // Title       string   json:"title"
+  // Body        string   json:"body"
+  // CreatedAt   string   json:"created_at"
+  // UpdatedAt   string   json:"updated_at"
+  // Url         string   json:"url"
+  // Tags        []string json:"tags"
+  // Private     bool     json:"private"
+  // LikesCount  int      json:"likes_count"
+};
+
 export const DefaultArticle: Article = {
   id: 0,
   create_user_id: "",
