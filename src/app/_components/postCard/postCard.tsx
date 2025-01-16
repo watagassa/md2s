@@ -42,12 +42,7 @@ export function PostCard({ post }: CardProps) {
           </Box>
         </CardHeader>
 
-        <PostTitle
-          id={post.id}
-          title={post.title}
-          qiita_article={post.qiita_article}
-          post={post}
-        />
+        <PostTitle id={post.id} title={post.title} />
         <CardFooter>
           <Flex gap="md">
             {post.tags.map((tag) => (
