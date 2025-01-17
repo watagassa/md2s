@@ -10,6 +10,7 @@ import {
   Center,
   VStack,
   HStack,
+  Button,
 } from "@yamada-ui/react";
 import SlidePreview from "@/app/_components/slide/SlidePreview";
 import FavoriteButton from "@/app/_components/favoriteButton/favoriteButton";
@@ -17,6 +18,7 @@ import { Markdown } from "@yamada-ui/markdown";
 import { qiitaPostAtom } from "@/app/atoms/atom";
 import { useAtom } from "jotai";
 import { v4 as uuidv4 } from "uuid";
+import { redirect } from "next/navigation";
 
 const QiitaPostView = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -42,6 +44,13 @@ const QiitaPostView = () => {
     "日";
   return (
     <Box paddingInline="9%" paddingTop={"lg"}>
+      <Button
+        onClick={() => {
+          redirect(`/qiita/post/new`);
+        }}
+      >
+        この記事をmd2sの記事としてimport
+      </Button>
       <HStack marginInline={"xl"} mb={"md"}>
         <VStack m={"xs"} gapY={"md"}>
           <Flex>
