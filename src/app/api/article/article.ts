@@ -118,7 +118,7 @@ export const searchArticles = async (keyword: string): Promise<Article[]> => {
     });
 
     if (!res.ok) {
-      console.error(`Failed to create article: ${res.status}`);
+      console.error(`Failed to search article: ${res.status}`);
       return [];
     }
 
@@ -127,5 +127,34 @@ export const searchArticles = async (keyword: string): Promise<Article[]> => {
   } catch (error) {
     console.error("Error got articles:", error);
     return [];
+  }
+};
+
+// 記事更新
+export const updateArticle = async (
+  idToken: string,
+  article_id: number,
+  articleData: ArticleRequest
+): Promise<Article | null> => {
+  try {
+    const res = await fetch(baseURL + "/" + article_id, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json", // 必要なら追加
+        Authorization: `Bearer ${idToken}`, // トークンをヘッダーに含める
+      },
+      body: JSON.stringify(articleData),
+    });
+
+    if (!res.ok) {
+      console.error(`Failed to update article: ${res.status}`);
+      return null;
+    }
+
+    const data: Article = await res.json();
+    return data;
+  } catch (error) {
+    console.error("Error updating article:", error);
+    return null;
   }
 };
