@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Article } from "@/types/post";
-import { getArticles } from "../../api/article/article";
+import { getArticles } from "../../../api/article/article";
 import SearchPost from "../view";
 
 export default function SearchPostLogic() {
@@ -16,12 +16,12 @@ export default function SearchPostLogic() {
   useEffect(() => {
     searchPosts();
   }, []);
-  
+
   return (
-    <SearchPost 
-      posts={posts} 
-      inputKeyword={inputKeyword} 
-      setInputKeyword = {setInputKeyword} 
+    <SearchPost
+      posts={posts}
+      inputKeyword={inputKeyword}
+      setInputKeyword={setInputKeyword}
     />
   );
 }

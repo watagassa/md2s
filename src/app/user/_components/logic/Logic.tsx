@@ -6,8 +6,8 @@ import { useAtom } from "jotai";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
-import { getUserArticles } from "../../api/article/article";
-import { userAtom } from "../../atoms/atom";
+import { getUserArticles } from "../../../api/article/article";
+import { userAtom } from "../../../atoms/atom";
 import UserPage from "../view";
 
 export default function PostPageLogic() {

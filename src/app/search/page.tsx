@@ -1,4 +1,4 @@
-import PostPageLogic from "./logic/Logic";
+import PostPageLogic from "./_components/logic/Logic";
 
 export default function Page() {
   return <PostPageLogic />;
