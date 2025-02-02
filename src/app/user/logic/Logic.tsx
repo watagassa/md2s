@@ -1,17 +1,14 @@
 "use client";
 
 import { Article } from "@/types/post";
-import {
-  Center,
-  Loading,
-} from "@yamada-ui/react";
+import { Center, Loading } from "@yamada-ui/react";
 import { useAtom } from "jotai";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getUserArticles } from "../../api/article/article";
 import { userAtom } from "../../atoms/atom";
-import Page from "../view";
+import UserPage from "../view";
 
 export default function PostPageLogic() {
   const { status } = useSession();
@@ -37,10 +34,5 @@ export default function PostPageLogic() {
     return null;
   }
 
-  return (
-    <Page
-     posts = {posts}
-     user = {user}
-    />
-  );
+  return <UserPage posts={posts} user={user} />;
 }

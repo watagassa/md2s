@@ -2,9 +2,9 @@
 import { useEffect, useState } from "react";
 import { Article } from "@/types/post";
 import { getArticles } from "../../api/article/article";
-import Page from "../view";
+import SearchPost from "../view";
 
-export default function SearchPost() {
+export default function SearchPostLogic() {
   const [posts, setPosts] = useState<Article[]>([]);
   const [inputKeyword, setInputKeyword] = useState("");
 
@@ -18,7 +18,7 @@ export default function SearchPost() {
   }, []);
   
   return (
-    <Page 
+    <SearchPost 
       posts={posts} 
       inputKeyword={inputKeyword} 
       setInputKeyword = {setInputKeyword} 

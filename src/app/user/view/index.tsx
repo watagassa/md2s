@@ -20,7 +20,7 @@ interface PageProps {
   user: User | null;
 }
 
-export default function Page({ posts, user }: PageProps) {
+export default function UserPage({ posts, user }: PageProps) {
   return (
     <Box bgColor={"blackAlpha.50"} py={"md"}>
       <Flex justify="center" m={"normal"}>
