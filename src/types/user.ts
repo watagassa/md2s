@@ -6,6 +6,6 @@ export interface User {
   icon_url: string;
   google_id: string;
   qiita_link: boolean;
-  total_posts_articles: number;
-  total_get_likes: number;
+  total_article_count: number;
+  total_get_like_count: number;
 }
