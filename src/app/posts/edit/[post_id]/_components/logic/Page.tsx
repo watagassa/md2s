@@ -13,13 +13,12 @@ interface EditPageLogicProps {
 }
 const EditPageLogic = ({ post_id }: EditPageLogicProps) => {
   const userSession = useAtomValue(userSessionAtom);
-  // // loginしていなかったらloginページに遷移
-  // // userページにボタン追加したらつける
-  // // if (!userSession) {
-  // //   redirect("/login");
-  // // }
+  // loginしていなかったらloginページに遷移
+  if (!userSession) {
+    redirect("/login");
+  }
   const [post, setPost] = useState<Article>(DefaultArticle);
-  // // 非同期関数を useEffect 内で呼び出す
+  // 非同期関数を useEffect 内で呼び出す
   useEffect(() => {
     const fetchPost = () => {
       getParticularArticle(post_id)
@@ -105,12 +104,10 @@ const EditPageLogic = ({ post_id }: EditPageLogicProps) => {
       }
     }
     const ArticleData: ArticleRequest = {
-      // TODO user_idを取得してくる
       title: title,
       main_MD: markdownValue,
       slide_MD: marpValue,
       public: isPublic,
-      // // TODO qiitaから取ってきたときにtrueにするから、後で消す
       qiita_article: post.qiita_article,
       // dbに元からあって記事にあるタグと、dbに今登録したタグを合体
       tags: tags,
