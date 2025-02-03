@@ -1,6 +1,6 @@
 "use client";
 
-import { PostCard } from "@/app/_components/postCard/postCard";
+import { UserPostCard } from "@/app/_components/postCard/userPostCard/userPostCard";
 import { Article } from "@/types/post";
 import { User } from "@/types/user";
 import {
@@ -69,7 +69,7 @@ export default function UserPage({ posts, user }: PageProps) {
       {posts ? (
         <VStack gap={"md"}>
           {posts.map((post) => (
-            <PostCard key={post.id} post={post} />
+            <UserPostCard key={post.id} post={post} />
           ))}
         </VStack>
       ) : (
