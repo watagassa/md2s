@@ -136,6 +136,7 @@ export const updateArticle = async (
   article_id: number,
   articleData: ArticleRequest
 ): Promise<Article | null> => {
+  console.log(articleData);
   try {
     const res = await fetch(baseURL + "/" + article_id, {
       method: "PUT",
@@ -156,5 +157,25 @@ export const updateArticle = async (
   } catch (error) {
     console.error("Error updating article:", error);
     return null;
+  }
+};
+
+// 記事削除
+export const deleteArticle = async (idToken: string, article_id: number) => {
+  try {
+    const res = await fetch(baseURL + "/" + article_id, {
+      method: "DELETE",
+    });
+
+    if (!res.ok) {
+      console.error(`Failed to delete article: ${res.status}`);
+      console.error(res);
+      return null;
+    }
+
+    const data = await res.json();
+    console.log(data);
+  } catch (error) {
+    console.error("Error deleting article:", error);
   }
 };

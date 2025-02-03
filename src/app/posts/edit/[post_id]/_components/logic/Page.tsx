@@ -1,9 +1,5 @@
 "use client";
-import {
-  createArticle,
-  getParticularArticle,
-  updateArticle,
-} from "@/app/api/article/article";
+import { getParticularArticle, updateArticle } from "@/app/api/article/article";
 import { createTags, getAllTags } from "@/app/api/tag/tag";
 import { userSessionAtom } from "@/app/atoms/atom";
 import { Article, ArticleRequest, DefaultArticle, Tag } from "@/types/post";
@@ -12,10 +8,10 @@ import { useAtomValue } from "jotai";
 import { redirect } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import Page from "../view/Page";
-interface EditPageLogicParams {
+interface EditPageLogicProps {
   post_id: number;
 }
-const EditPageLogic = ({ post_id }: EditPageLogicParams) => {
+const EditPageLogic = ({ post_id }: EditPageLogicProps) => {
   const userSession = useAtomValue(userSessionAtom);
   // // loginしていなかったらloginページに遷移
   // // userページにボタン追加したらつける
@@ -120,7 +116,7 @@ const EditPageLogic = ({ post_id }: EditPageLogicParams) => {
       tags: tags,
     };
     if (userSession?.idToken) {
-      await updateArticle(userSession.idToken, post.id, ArticleData);
+      await updateArticle(userSession.idToken, post_id, ArticleData);
       redirect("/");
     }
   };
