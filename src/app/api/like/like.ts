@@ -36,7 +36,7 @@ export const deleteLike = async (
   session: Session | null,
   article_id: number
 ) => {
-  const deleteAPI = process.env.NEXT_PUBLIC_API_URL + "/likes" + article_id;
+  const deleteAPI = process.env.NEXT_PUBLIC_API_URL + "/likes/" + article_id;
   try {
     if (session?.idToken) {
       const res = await fetch(deleteAPI, {
@@ -48,7 +48,8 @@ export const deleteLike = async (
       });
 
       if (!res.ok) {
-        console.error(`Failed to create article: ${res.status}`);
+        const errorResponse = await res.json();
+        console.error(`Failed to delete like: ${res.status}`, errorResponse);
         return null;
       }
     } else {
@@ -66,7 +67,7 @@ export const getUserLike = async (
   session: Session | null,
   article_id: number
 ): Promise<boolean | null> => {
-  const postAPI = process.env.NEXT_PUBLIC_API_URL + "/likes" + article_id;
+  const postAPI = process.env.NEXT_PUBLIC_API_URL + "/likes/" + article_id;
   try {
     if (session?.idToken) {
       const res = await fetch(postAPI, {
@@ -78,7 +79,7 @@ export const getUserLike = async (
       });
 
       if (!res.ok) {
-        console.error(`Failed to create article: ${res.status}`);
+        console.error(`Failed to get like: ${res.status}`);
         return null;
       }
 

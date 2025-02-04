@@ -42,7 +42,7 @@ export type QittaList = {
 };
 
 export const DefaultArticle: Article = {
-  id: 0,
+  id: -1,
   create_user_id: "",
   name: "",
   icon_url: "",

@@ -12,7 +12,7 @@ import {
 import { HeartIcon } from "@yamada-ui/lucide";
 import { type Article } from "@/types/post";
 import PostTitle from "./postTitle";
-
+import { v4 as uuidv4 } from "uuid";
 interface CardProps {
   post: Article;
 }
@@ -45,9 +45,9 @@ export function PostCard({ post }: CardProps) {
         <PostTitle id={post.id} title={post.title} />
         <CardFooter>
           <Flex gap="md">
-            {post.tags.map((tag) => (
+            {post.tags?.map((tag) => (
               <Tag
-                key={tag.id}
+                key={uuidv4()}
                 paddingInline="sm"
                 bgColor={"neutral.50"}
                 color={"black"}

@@ -118,7 +118,7 @@ export const searchArticles = async (keyword: string): Promise<Article[]> => {
     });
 
     if (!res.ok) {
-      console.error(`Failed to create article: ${res.status}`);
+      console.error(`Failed to search article: ${res.status}`);
       return [];
     }
 
@@ -127,5 +127,59 @@ export const searchArticles = async (keyword: string): Promise<Article[]> => {
   } catch (error) {
     console.error("Error got articles:", error);
     return [];
+  }
+};
+
+// 記事更新
+export const updateArticle = async (
+  idToken: string,
+  article_id: number,
+  articleData: ArticleRequest
+): Promise<Article | null> => {
+  console.log(articleData);
+  try {
+    const res = await fetch(baseURL + "/" + article_id, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json", // 必要なら追加
+        Authorization: `Bearer ${idToken}`, // トークンをヘッダーに含める
+      },
+      body: JSON.stringify(articleData),
+    });
+
+    if (!res.ok) {
+      console.error(`Failed to update article: ${res.status}`);
+      return null;
+    }
+
+    const data: Article = await res.json();
+    return data;
+  } catch (error) {
+    console.error("Error updating article:", error);
+    return null;
+  }
+};
+
+// 記事削除
+export const deleteArticle = async (idToken: string, article_id: number) => {
+  try {
+    const res = await fetch(baseURL + "/" + article_id, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json", // 必要なら追加
+        Authorization: `Bearer ${idToken}`, // トークンをヘッダーに含める
+      },
+    });
+
+    if (!res.ok) {
+      console.error(`Failed to delete article: ${res.status}`);
+      console.error(res);
+      return null;
+    }
+
+    const data = await res.json();
+    console.log(data);
+  } catch (error) {
+    console.error("Error deleting article:", error);
   }
 };

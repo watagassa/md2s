@@ -2,7 +2,8 @@ const baseURL = process.env.NEXT_PUBLIC_API_URL + "/slide";
 
 export const exchangeMd2s = async (
   title: string,
-  md: string
+  md: string,
+  style: number
 ): Promise<string> => {
   try {
     const res = await fetch(baseURL, {
@@ -10,6 +11,7 @@ export const exchangeMd2s = async (
       body: JSON.stringify({
         md: md,
         title: title,
+        style: style,
       }),
     });
 

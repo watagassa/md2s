@@ -38,7 +38,7 @@ export const getQiitaArticles = async (
         like_count: e.likes_count,
         public: e.private,
         qiita_article: true,
-        tags: e.tags.map((word, index) => {
+        tags: e.tags?.map((word, index) => {
           return { id: index, word: word };
         }),
       };
