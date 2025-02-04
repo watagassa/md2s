@@ -20,6 +20,7 @@ import { HeartIcon } from "@yamada-ui/lucide";
 import { type Article } from "@/types/post";
 import PostTitle from "../postTitle";
 import { v4 as uuidv4 } from "uuid";
+import { redirect } from "next/navigation";
 interface UserCardProps {
   post: Article;
   date: string;
@@ -94,6 +95,7 @@ export function UserPostCardView({
                     colorScheme="primary"
                     onClick={() => {
                       handleDelete();
+                      redirect("/user");
                     }}
                   >
                     削除する
