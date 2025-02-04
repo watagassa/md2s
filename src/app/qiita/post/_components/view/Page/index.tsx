@@ -70,7 +70,10 @@ const Page = ({
           </HStack>
         </VStack>
         <VStack gapY={"xl"} align={"end"} flex={"end"} pt={"xl"}>
-          <FavoriteButton countFavorite={post.like_count} />
+          <FavoriteButton
+            countFavorite={post.like_count}
+            article_id={post.id}
+          />
           <Box>
             <MdSlideToggle
               isMarkdownView={isMarkdownView}

@@ -40,6 +40,7 @@ const PostPageLogic = ({
     "月" +
     updated_date.getUTCDate() +
     "日";
+
   return (
     <Page
       post={post}
