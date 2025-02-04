@@ -165,6 +165,10 @@ export const deleteArticle = async (idToken: string, article_id: number) => {
   try {
     const res = await fetch(baseURL + "/" + article_id, {
       method: "DELETE",
+      headers: {
+        "Content-Type": "application/json", // 必要なら追加
+        Authorization: `Bearer ${idToken}`, // トークンをヘッダーに含める
+      },
     });
 
     if (!res.ok) {
