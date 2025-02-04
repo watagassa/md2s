@@ -46,7 +46,7 @@ const EditPageLogic = ({ post_id }: EditPageLogicProps) => {
       setMarkdownValue(post.main_MD);
       setMarpValue(post.slide_MD);
       setTagsWord(
-        post.tags.map((e) => {
+        post.tags?.map((e) => {
           return e.word;
         })
       );
@@ -57,7 +57,7 @@ const EditPageLogic = ({ post_id }: EditPageLogicProps) => {
 
   useEffect(() => {
     let a = "";
-    tagsWord.map((e) => {
+    tagsWord?.map((e) => {
       a += e + " ";
     });
 

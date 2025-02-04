@@ -8,7 +8,7 @@ import {
   NativeOption,
   NativeSelect,
 } from "@yamada-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import { BsFileEarmarkSlides } from "react-icons/bs";
 import { PiFileMdBold } from "react-icons/pi";
 
@@ -22,12 +22,25 @@ const CreateSlideInMd = ({
   setMarpValue,
   title,
 }: CreateSlideInMdProps) => {
+  const [style, setStyle] = useState(1);
   const clickHandler = async () => {
-    setMarpValue(await exchangeMd2s(title, markdownValue));
+    setMarpValue(await exchangeMd2s(title, markdownValue, style));
   };
   return (
     <Flex>
       <Center>
+        {/* <Image
+          alt="def"
+          src={"/default.png"}
+          width={"1.5rem"}
+          height={"3rem"}
+        ></Image>
+        <Image
+          alt="def-inv"
+          src={"default-inv.png"}
+          width={"1.5rem"}
+          height={"2rem"}
+        ></Image> */}
         <Button
           minW={"15rem"}
           minH={"3rem"}
@@ -37,17 +50,21 @@ const CreateSlideInMd = ({
             clickHandler();
           }}
         >
-          <Icon as={PiFileMdBold} fontSize={"3xl"}></Icon>
+          <Icon as={PiFileMdBold} fontSize={"2xl"}></Icon>
           to
           <Icon as={BsFileEarmarkSlides} fontSize={"3xl"}></Icon>
           {/* TODO ここにmarpのレイアウトを入れる */}
-          <NativeSelect placeholder="default">
-            <NativeOption value="gaia">gaia</NativeOption>
-            <NativeOption value="uncover">uncover</NativeOption>
-            <NativeOption value="academic">academic</NativeOption>
-            <NativeOption value="gradient">gradient</NativeOption>
-            <NativeOption value="border">border</NativeOption>
-            <NativeOption value="beam">beam</NativeOption>
+          <NativeSelect
+            value={style}
+            onClick={(event) => event.stopPropagation()}
+            onChange={(e) => setStyle(Number(e.target.value))}
+          >
+            <NativeOption value={0}>default</NativeOption>
+            <NativeOption value={1}>default-inv</NativeOption>
+            <NativeOption value={2}>gaia</NativeOption>
+            <NativeOption value={3}>gaia-inv</NativeOption>
+            <NativeOption value={4}>uncover</NativeOption>
+            <NativeOption value={5}>uncover-inv</NativeOption>
           </NativeSelect>
         </Button>
       </Center>

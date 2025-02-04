@@ -21,6 +21,7 @@ import {
   VStack,
   Wrap,
 } from "@yamada-ui/react";
+import { redirect } from "next/navigation";
 import React from "react";
 
 interface PostProps {
@@ -120,7 +121,7 @@ const Page = ({
               <ModalFooter>
                 <Button
                   onClick={() => {
-                    onClose();
+                    redirect("/qiita");
                   }}
                 >
                   cancel

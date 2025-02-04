@@ -23,9 +23,9 @@ export function UserPostCard({ post }: UserCardProps) {
   const handleEdit = () => {
     redirect(`posts/edit/${post.id}`);
   };
-  const handleDelete = () => {
+  const handleDelete = async () => {
     if (userSession?.idToken) {
-      deleteArticle(userSession.idToken, post.id);
+      await deleteArticle(userSession.idToken, post.id);
     }
   };
 
