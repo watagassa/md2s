@@ -114,12 +114,19 @@ const Page = ({
               <ModalFooter>
                 <Button
                   onClick={() => {
-                    redirect("/qiita");
+                    onClose();
                   }}
                 >
                   cancel
                 </Button>
-                <Button colorScheme="primary">importする!!</Button>
+                <Button
+                  colorScheme="primary"
+                  onClick={() => {
+                    redirect("/qiita");
+                  }}
+                >
+                  importする!!
+                </Button>
               </ModalFooter>
             </Modal>
           </VStack>
