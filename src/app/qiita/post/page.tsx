@@ -1,7 +1,7 @@
 import QiitaPostPageLogic from "./_components/logic/Page";
 
 const QiitaPostPage = () => {
-  <QiitaPostPageLogic />;
+  return <QiitaPostPageLogic />;
 };
 
 export default QiitaPostPage;
