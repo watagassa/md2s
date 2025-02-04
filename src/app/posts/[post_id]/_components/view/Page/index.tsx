@@ -44,7 +44,7 @@ const Page = ({
             {post.title}
           </Text>
           <Flex gap="md">
-            {post.tags.map((tag) => (
+            {post.tags?.map((tag) => (
               <Tag
                 key={tag.id}
                 paddingInline="sm"

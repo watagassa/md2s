@@ -26,7 +26,7 @@ const NewPostDataLogic = () => {
     setMarkdownValue(post.main_MD);
     setMarpValue(post.slide_MD);
     setTagsWord(
-      post.tags.map((e) => {
+      post.tags?.map((e) => {
         return e.word + " ";
       })
     );
